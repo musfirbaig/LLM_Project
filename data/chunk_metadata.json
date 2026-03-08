@@ -41,17 +41,17 @@
     },
     {
         "id": 5,
-        "text": "Question: What documents are required to open a Little Champs Account.\nAnswer: · A photocopy of Form-B, Birth Certificate or Student ID card (as appropriate) of the minor · A photocopy of any one of the following valid identity documents of the guardian of the minor:",
+        "text": "Question: What documents are required to open a Little Champs Account.\nAnswer: A photocopy of Form-B, Birth Certificate or Student ID card (as appropriate) of the minor · A photocopy of any one of the following valid identity documents of the guardian of the minor:",
         "question": "What documents are required to open a Little Champs Account.",
-        "answer": "· A photocopy of Form-B, Birth Certificate or Student ID card (as appropriate) of the minor · A photocopy of any one of the following valid identity documents of the guardian of the minor:",
+        "answer": "A photocopy of Form-B, Birth Certificate or Student ID card (as appropriate) of the minor · A photocopy of any one of the following valid identity documents of the guardian of the minor:",
         "product": "Little Champs Account",
         "sheet": "LCA"
     },
     {
         "id": 6,
-        "text": "Question: Computerized National Identity Card (CNIC) issued by NADRA\nAnswer: National Identity Card for Overseas Pakistani (NICOP) issued by NADRA 3. Pakistan Origin Card (POC) issued by NADRA 4. Alien Registration Card (ARC) issued by National Aliens Registration Authority (NARA), Ministry of Interior (local currency account only) 5. Passport, with a valid visa or any other proof of legal stay along with passport (foreign national individuals only) 6. Source of income of guardian",
-        "question": "Computerized National Identity Card (CNIC) issued by NADRA",
-        "answer": "National Identity Card for Overseas Pakistani (NICOP) issued by NADRA 3. Pakistan Origin Card (POC) issued by NADRA 4. Alien Registration Card (ARC) issued by National Aliens Registration Authority (NARA), Ministry of Interior (local currency account only) 5. Passport, with a valid visa or any other proof of legal stay along with passport (foreign national individuals only) 6. Source of income of guardian",
+        "text": "Question: 1. Computerized National Identity Card (CNIC) issued by NADRA\nAnswer: 2. National Identity Card for Overseas Pakistani (NICOP) issued by NADRA 3. Pakistan Origin Card (POC) issued by NADRA 4. Alien Registration Card (ARC) issued by National Aliens Registration Authority (NARA), Ministry of Interior (local currency account only) 5. Passport, with a valid visa or any other proof of legal stay along with passport (foreign national individuals only) 6. Source of income of guardian",
+        "question": "1. Computerized National Identity Card (CNIC) issued by NADRA",
+        "answer": "2. National Identity Card for Overseas Pakistani (NICOP) issued by NADRA 3. Pakistan Origin Card (POC) issued by NADRA 4. Alien Registration Card (ARC) issued by National Aliens Registration Authority (NARA), Ministry of Interior (local currency account only) 5. Passport, with a valid visa or any other proof of legal stay along with passport (foreign national individuals only) 6. Source of income of guardian",
         "product": "Little Champs Account",
         "sheet": "LCA"
     },
@@ -593,64 +593,64 @@
     },
     {
         "id": 74,
-        "text": "Question: What are the benefits of NUST Bank Auto Finance?\nAnswer: Competitive Floating & Fixed Mark Up Rate - Partial Payment option available to reduce monthly instalment - Attractive Insurance Rate at 1.75% per annum - Quick Processing & Minimum Documentation - Free Tracker & Its installation - No hidden charges - Free Accidental Life Insurance up to Rs.1,000,000",
-        "question": "What are the benefits of NUST Bank Auto Finance?",
+        "text": "Question: 1.What are the benefits of NUST Bank Auto Finance?\nAnswer: Competitive Floating & Fixed Mark Up Rate - Partial Payment option available to reduce monthly instalment - Attractive Insurance Rate at 1.75% per annum - Quick Processing & Minimum Documentation - Free Tracker & Its installation - No hidden charges - Free Accidental Life Insurance up to Rs.1,000,000",
+        "question": "1.What are the benefits of NUST Bank Auto Finance?",
         "answer": "Competitive Floating & Fixed Mark Up Rate - Partial Payment option available to reduce monthly instalment - Attractive Insurance Rate at 1.75% per annum - Quick Processing & Minimum Documentation - Free Tracker & Its installation - No hidden charges - Free Accidental Life Insurance up to Rs.1,000,000",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 75,
-        "text": "Question: Who can apply for NUST Auto Finance?\nAnswer: · Salaried Individuals · Specially Abled Persons/Visually Impaired Person/Persons with Disabilities (PWD) · Self Employed Businessman/Woman (SEB) · Individuals having any other verifiable source of income · Self Employed Professionals (SEP)",
-        "question": "Who can apply for NUST Auto Finance?",
-        "answer": "· Salaried Individuals · Specially Abled Persons/Visually Impaired Person/Persons with Disabilities (PWD) · Self Employed Businessman/Woman (SEB) · Individuals having any other verifiable source of income · Self Employed Professionals (SEP)",
+        "text": "Question: 2. Who can apply for NUST Auto Finance?\nAnswer: Salaried Individuals · Specially Abled Persons/Visually Impaired Person/Persons with Disabilities (PWD) · Self Employed Businessman/Woman (SEB) · Individuals having any other verifiable source of income · Self Employed Professionals (SEP)",
+        "question": "2. Who can apply for NUST Auto Finance?",
+        "answer": "Salaried Individuals · Specially Abled Persons/Visually Impaired Person/Persons with Disabilities (PWD) · Self Employed Businessman/Woman (SEB) · Individuals having any other verifiable source of income · Self Employed Professionals (SEP)",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 76,
-        "text": "Question: Which types of Vehicles are offered under NUST auto finance?\nAnswer: Locally assembled/manufactured New/Used vehicles (Commercial vehicles or vehicles for commercial use cannot be financed)",
-        "question": "Which types of Vehicles are offered under NUST auto finance?",
+        "text": "Question: 3. Which types of Vehicles are offered under NUST auto finance?\nAnswer: Locally assembled/manufactured New/Used vehicles (Commercial vehicles or vehicles for commercial use cannot be financed)",
+        "question": "3. Which types of Vehicles are offered under NUST auto finance?",
         "answer": "Locally assembled/manufactured New/Used vehicles (Commercial vehicles or vehicles for commercial use cannot be financed)",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 77,
-        "text": "Question: Can I avail Loan Facility, if there are defaults against my previous loan(s)?\nAnswer: No. Regular payment against previous loans is necessary.",
-        "question": "Can I avail Loan Facility, if there are defaults against my previous loan(s)?",
+        "text": "Question: 4. Can I avail Loan Facility, if there are defaults against my previous loan(s)?\nAnswer: No. Regular payment against previous loans is necessary.",
+        "question": "4. Can I avail Loan Facility, if there are defaults against my previous loan(s)?",
         "answer": "No. Regular payment against previous loans is necessary.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 78,
-        "text": "Question: How much loan can I avail?\nAnswer: Up to a maximum of Rs.3 Million from all banks/DFIs in aggregate, subject to a maximum of 40% Debt Burden requirement.",
-        "question": "How much loan can I avail?",
+        "text": "Question: 5. How much loan can I avail?\nAnswer: Up to a maximum of Rs.3 Million from all banks/DFIs in aggregate, subject to a maximum of 40% Debt Burden requirement.",
+        "question": "5. How much loan can I avail?",
         "answer": "Up to a maximum of Rs.3 Million from all banks/DFIs in aggregate, subject to a maximum of 40% Debt Burden requirement.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 79,
-        "text": "Question: What is maximum period of loan?\nAnswer: Up to 1000 CC Vehicles up to 5 Years For Vehicles Greater than 1000 CC up to 3 Years",
-        "question": "What is maximum period of loan?",
+        "text": "Question: 6. What is maximum period of loan?\nAnswer: Up to 1000 CC Vehicles up to 5 Years For Vehicles Greater than 1000 CC up to 3 Years",
+        "question": "6. What is maximum period of loan?",
         "answer": "Up to 1000 CC Vehicles up to 5 Years For Vehicles Greater than 1000 CC up to 3 Years",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 80,
-        "text": "Question: How much Equity/Down Payment is required?\nAnswer: Minimum 30% equity +(1st Year Insurance + documentation charges) is required as down payment",
-        "question": "How much Equity/Down Payment is required?",
+        "text": "Question: 7. How much Equity/Down Payment is required?\nAnswer: Minimum 30% equity +(1st Year Insurance + documentation charges) is required as down payment",
+        "question": "7. How much Equity/Down Payment is required?",
         "answer": "Minimum 30% equity +(1st Year Insurance + documentation charges) is required as down payment",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 81,
-        "text": "Question: Can I avail more than one vehicle through Auto loan facility?\nAnswer: Yes. Two vehicles can be availed simultaneously from NUST Bank, subject to Debt Burden Limitations 9. Can I avail Auto loan facility, if I am not a Salaried Person/Businessman/",
-        "question": "Can I avail more than one vehicle through Auto loan facility?",
+        "text": "Question: 8. Can I avail more than one vehicle through Auto loan facility?\nAnswer: Yes. Two vehicles can be availed simultaneously from NUST Bank, subject to Debt Burden Limitations 9. Can I avail Auto loan facility, if I am not a Salaried Person/Businessman/",
+        "question": "8. Can I avail more than one vehicle through Auto loan facility?",
         "answer": "Yes. Two vehicles can be availed simultaneously from NUST Bank, subject to Debt Burden Limitations 9. Can I avail Auto loan facility, if I am not a Salaried Person/Businessman/",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
@@ -665,80 +665,80 @@
     },
     {
         "id": 83,
-        "text": "Question: Are there any hidden charges?\nAnswer: There are no hidden charges. All charges are mentioned in our Schedule of Charges available at our website and at all branches of NUST Bank.",
-        "question": "Are there any hidden charges?",
+        "text": "Question: 10. Are there any hidden charges?\nAnswer: There are no hidden charges. All charges are mentioned in our Schedule of Charges available at our website and at all branches of NUST Bank.",
+        "question": "10. Are there any hidden charges?",
         "answer": "There are no hidden charges. All charges are mentioned in our Schedule of Charges available at our website and at all branches of NUST Bank.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 84,
-        "text": "Question: Is insurance of vehicle is mandatory?\nAnswer: Yes. Comprehensive Insurance of vehicle is mandatory for the whole tenor of loan at the cost of the borrower through any of the insurance companies listed with NUST Bank.",
-        "question": "Is insurance of vehicle is mandatory?",
+        "text": "Question: 11. Is insurance of vehicle is mandatory?\nAnswer: Yes. Comprehensive Insurance of vehicle is mandatory for the whole tenor of loan at the cost of the borrower through any of the insurance companies listed with NUST Bank.",
+        "question": "11. Is insurance of vehicle is mandatory?",
         "answer": "Yes. Comprehensive Insurance of vehicle is mandatory for the whole tenor of loan at the cost of the borrower through any of the insurance companies listed with NUST Bank.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 85,
-        "text": "Question: What will be the monthly insurance charges on the vehicle valuing Rs.3 million?\nAnswer: With the current insurance rate of 1.75% per annum, it will be Rs.4,375/- per month. Insurance rate once fixed, shall remain unchanged during the whole tenor of financing.",
-        "question": "What will be the monthly insurance charges on the vehicle valuing Rs.3 million?",
+        "text": "Question: 12. What will be the monthly insurance charges on the vehicle valuing Rs.3 million?\nAnswer: With the current insurance rate of 1.75% per annum, it will be Rs.4,375/- per month. Insurance rate once fixed, shall remain unchanged during the whole tenor of financing.",
+        "question": "12. What will be the monthly insurance charges on the vehicle valuing Rs.3 million?",
         "answer": "With the current insurance rate of 1.75% per annum, it will be Rs.4,375/- per month. Insurance rate once fixed, shall remain unchanged during the whole tenor of financing.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 86,
-        "text": "Question: Who will insure my Vehicle?\nAnswer: NUST Bank has insurance arrangements with reputed insurance companies with attractive insurance rate, Free Tracker and Free Accidental Life insurance up to Rs.1 million. Customer has to select insurance company of his/her choice from NUST Panel of insurance companies.",
-        "question": "Who will insure my Vehicle?",
+        "text": "Question: 13. Who will insure my Vehicle?\nAnswer: NUST Bank has insurance arrangements with reputed insurance companies with attractive insurance rate, Free Tracker and Free Accidental Life insurance up to Rs.1 million. Customer has to select insurance company of his/her choice from NUST Panel of insurance companies.",
+        "question": "13. Who will insure my Vehicle?",
         "answer": "NUST Bank has insurance arrangements with reputed insurance companies with attractive insurance rate, Free Tracker and Free Accidental Life insurance up to Rs.1 million. Customer has to select insurance company of his/her choice from NUST Panel of insurance companies.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 87,
-        "text": "Question: Can I pay my loan before maturity?\nAnswer: Yes. You can pay your loan before maturity. However, charges shall be applicable as per prevailing SOC https://NUSTbank.com/NUSTUploads/uploads/SOC-Conv-English.pdf",
-        "question": "Can I pay my loan before maturity?",
+        "text": "Question: 14. Can I pay my loan before maturity?\nAnswer: Yes. You can pay your loan before maturity. However, charges shall be applicable as per prevailing SOC https://NUSTbank.com/NUSTUploads/uploads/SOC-Conv-English.pdf",
+        "question": "14. Can I pay my loan before maturity?",
         "answer": "Yes. You can pay your loan before maturity. However, charges shall be applicable as per prevailing SOC https://NUSTbank.com/NUSTUploads/uploads/SOC-Conv-English.pdf",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 88,
-        "text": "Question: What is the security against the loan?\nAnswer: Financed vehicle will be the security against the loan, which will be hypothecated in favour of NUST Bank.",
-        "question": "What is the security against the loan?",
+        "text": "Question: 15. What is the security against the loan?\nAnswer: Financed vehicle will be the security against the loan, which will be hypothecated in favour of NUST Bank.",
+        "question": "15. What is the security against the loan?",
         "answer": "Financed vehicle will be the security against the loan, which will be hypothecated in favour of NUST Bank.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 89,
-        "text": "Question: Whether bank is responsible for delay in booking or delivery of vehicle?\nAnswer: No. Bank does not assume any responsibility in this regard, as same is beyond the control of bank.",
-        "question": "Whether bank is responsible for delay in booking or delivery of vehicle?",
+        "text": "Question: 16. Whether bank is responsible for delay in booking or delivery of vehicle?\nAnswer: No. Bank does not assume any responsibility in this regard, as same is beyond the control of bank.",
+        "question": "16. Whether bank is responsible for delay in booking or delivery of vehicle?",
         "answer": "No. Bank does not assume any responsibility in this regard, as same is beyond the control of bank.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 90,
-        "text": "Question: Whether bank is responsible for any type of dispute related to Warranty/Fault in vehicle/Service issues with Dealership or vehicle Manufacturer?\nAnswer: No. Bank does not assume this responsibility. Customer will take up the matter directly with dealership or manufacturer.",
-        "question": "Whether bank is responsible for any type of dispute related to Warranty/Fault in vehicle/Service issues with Dealership or vehicle Manufacturer?",
+        "text": "Question: 17. Whether bank is responsible for any type of dispute related to Warranty/Fault in vehicle/Service issues with Dealership or vehicle Manufacturer?\nAnswer: No. Bank does not assume this responsibility. Customer will take up the matter directly with dealership or manufacturer.",
+        "question": "17. Whether bank is responsible for any type of dispute related to Warranty/Fault in vehicle/Service issues with Dealership or vehicle Manufacturer?",
         "answer": "No. Bank does not assume this responsibility. Customer will take up the matter directly with dealership or manufacturer.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 91,
-        "text": "Question: What is the Loan Application processing time?\nAnswer: The processing time for loan approval is approximately 11 working days, subject to complete application with required documents/formalities.",
-        "question": "What is the Loan Application processing time?",
+        "text": "Question: 18. What is the Loan Application processing time?\nAnswer: The processing time for loan approval is approximately 11 working days, subject to complete application with required documents/formalities.",
+        "question": "18. What is the Loan Application processing time?",
         "answer": "The processing time for loan approval is approximately 11 working days, subject to complete application with required documents/formalities.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
     },
     {
         "id": 92,
-        "text": "Question: How can I apply for loan?\nAnswer: You can apply by visiting any of our Branch or by calling us at 24 hours Contact Centre at 111-000-787. Our dedicated staff will help you to complete your loan application and other formalities.",
-        "question": "How can I apply for loan?",
+        "text": "Question: 19. How can I apply for loan?\nAnswer: You can apply by visiting any of our Branch or by calling us at 24 hours Contact Centre at 111-000-787. Our dedicated staff will help you to complete your loan application and other formalities.",
+        "question": "19. How can I apply for loan?",
         "answer": "You can apply by visiting any of our Branch or by calling us at 24 hours Contact Centre at 111-000-787. Our dedicated staff will help you to complete your loan application and other formalities.",
         "product": "NUST4Car : Auto Finance Facility",
         "sheet": "NUST4Car"
@@ -841,65 +841,65 @@
     },
     {
         "id": 105,
-        "text": "Question: NUST Sahar Current Account\nAnswer: NUST Sahar Savings Account 3-NUST Sahar Term Deposits 4-NUST Sahar Asaan Current Account",
-        "question": "NUST Sahar Current Account",
-        "answer": "NUST Sahar Savings Account 3-NUST Sahar Term Deposits 4-NUST Sahar Asaan Current Account",
+        "text": "Question: 1- NUST Sahar Current Account\nAnswer: 2-NUST Sahar Savings Account 3-NUST Sahar Term Deposits 4-NUST Sahar Asaan Current Account",
+        "question": "1- NUST Sahar Current Account",
+        "answer": "2-NUST Sahar Savings Account 3-NUST Sahar Term Deposits 4-NUST Sahar Asaan Current Account",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
     {
         "id": 106,
-        "text": "Question: What are the free facilities NUST is offering on NUST Sahar Current Account ?\nAnswer: · First Cheque Book · First Debit Card Issuance* · 50% Discount on first year Locker Rental (subject to locker availability) . Bankers Cheque Issuance . Inter Branch Online Cash Withdrawal/ Deposit (Online) . Internal Fund Transfer within NUST via branch (Online Transfer) · SMS Alerts on all banking Transactions · I-Net and Mobile Banking · E-statement Facility and much more *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
+        "text": "Question: What are the free facilities NUST is offering on NUST Sahar Current Account ?\nAnswer: First Cheque Book · First Debit Card Issuance* · 50% Discount on first year Locker Rental (subject to locker availability) . Bankers Cheque Issuance . Inter Branch Online Cash Withdrawal/ Deposit (Online) . Internal Fund Transfer within NUST via branch (Online Transfer) · SMS Alerts on all banking Transactions · I-Net and Mobile Banking · E-statement Facility and much more *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
         "question": "What are the free facilities NUST is offering on NUST Sahar Current Account ?",
-        "answer": "· First Cheque Book · First Debit Card Issuance* · 50% Discount on first year Locker Rental (subject to locker availability) . Bankers Cheque Issuance . Inter Branch Online Cash Withdrawal/ Deposit (Online) . Internal Fund Transfer within NUST via branch (Online Transfer) · SMS Alerts on all banking Transactions · I-Net and Mobile Banking · E-statement Facility and much more *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
+        "answer": "First Cheque Book · First Debit Card Issuance* · 50% Discount on first year Locker Rental (subject to locker availability) . Bankers Cheque Issuance . Inter Branch Online Cash Withdrawal/ Deposit (Online) . Internal Fund Transfer within NUST via branch (Online Transfer) · SMS Alerts on all banking Transactions · I-Net and Mobile Banking · E-statement Facility and much more *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
     {
         "id": 107,
-        "text": "Question: Can we open this account online?\nAnswer: · Digital account opening facility available with account opening within 48 hours",
+        "text": "Question: Can we open this account online?\nAnswer: Digital account opening facility available with account opening within 48 hours",
         "question": "Can we open this account online?",
-        "answer": "· Digital account opening facility available with account opening within 48 hours",
+        "answer": "Digital account opening facility available with account opening within 48 hours",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
     {
         "id": 108,
-        "text": "Question: Does the bank offer option of Term Deposits with this account.\nAnswer: · Yes, Option to book exclusive NUST Sahar Term Deposits from NUST Sahar Current Account at attractive rates is available.",
+        "text": "Question: Does the bank offer option of Term Deposits with this account.\nAnswer: Yes, Option to book exclusive NUST Sahar Term Deposits from NUST Sahar Current Account at attractive rates is available.",
         "question": "Does the bank offer option of Term Deposits with this account.",
-        "answer": "· Yes, Option to book exclusive NUST Sahar Term Deposits from NUST Sahar Current Account at attractive rates is available.",
+        "answer": "Yes, Option to book exclusive NUST Sahar Term Deposits from NUST Sahar Current Account at attractive rates is available.",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
     {
         "id": 109,
-        "text": "Question: Is there a Minimum balance requirement for NUST Sahar Current Account\nAnswer: · No minimum average balance requirement for account maintenance",
+        "text": "Question: Is there a Minimum balance requirement for NUST Sahar Current Account\nAnswer: No minimum average balance requirement for account maintenance",
         "question": "Is there a Minimum balance requirement for NUST Sahar Current Account",
-        "answer": "· No minimum average balance requirement for account maintenance",
+        "answer": "No minimum average balance requirement for account maintenance",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
     {
         "id": 110,
-        "text": "Question: What is the profit payment system for NUST Sahar Savings Account ?\nAnswer: · Monthly Profit Payment · Profit calculation on Monthly Average Balance",
+        "text": "Question: What is the profit payment system for NUST Sahar Savings Account ?\nAnswer: Monthly Profit Payment · Profit calculation on Monthly Average Balance",
         "question": "What is the profit payment system for NUST Sahar Savings Account ?",
-        "answer": "· Monthly Profit Payment · Profit calculation on Monthly Average Balance",
+        "answer": "Monthly Profit Payment · Profit calculation on Monthly Average Balance",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
     {
         "id": 111,
-        "text": "Question: What are the free services offered on NUST Sahar Savings Account?\nAnswer: · First Debit Card Issuance* · SMS Alerts on Digital Transactions · I-Net Banking . Internal Fund Transfer within NUST via branch (Online Transfer) . Inter Branch Online Cash Withdrawal/ Deposit (Online) · E-statement Facility · Debit card and Cheque book delivery at customer address & activation via Contact Centre *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
+        "text": "Question: What are the free services offered on NUST Sahar Savings Account?\nAnswer: First Debit Card Issuance* · SMS Alerts on Digital Transactions · I-Net Banking . Internal Fund Transfer within NUST via branch (Online Transfer) . Inter Branch Online Cash Withdrawal/ Deposit (Online) · E-statement Facility · Debit card and Cheque book delivery at customer address & activation via Contact Centre *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
         "question": "What are the free services offered on NUST Sahar Savings Account?",
-        "answer": "· First Debit Card Issuance* · SMS Alerts on Digital Transactions · I-Net Banking . Internal Fund Transfer within NUST via branch (Online Transfer) . Inter Branch Online Cash Withdrawal/ Deposit (Online) · E-statement Facility · Debit card and Cheque book delivery at customer address & activation via Contact Centre *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
+        "answer": "First Debit Card Issuance* · SMS Alerts on Digital Transactions · I-Net Banking . Internal Fund Transfer within NUST via branch (Online Transfer) . Inter Branch Online Cash Withdrawal/ Deposit (Online) · E-statement Facility · Debit card and Cheque book delivery at customer address & activation via Contact Centre *Subsequent Charges/Annual Fees would be as per prevailing Schedule of Charges",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
     {
         "id": 112,
-        "text": "Question: What are the main features of NUST Sahar Term Deposit ?\nAnswer: · Flexibility to choose from multiple tenure: 1, 3 or 5 Years · Investments starts from as low as Rs. 50,000/- · Monthly Profit Payment in your NUST Sahar Current Account · Roll-over option available Note: Deals to be booked from NUST Sahar Current Account Only",
+        "text": "Question: What are the main features of NUST Sahar Term Deposit ?\nAnswer: Flexibility to choose from multiple tenure: 1, 3 or 5 Years · Investments starts from as low as Rs. 50,000/- · Monthly Profit Payment in your NUST Sahar Current Account · Roll-over option available Note: Deals to be booked from NUST Sahar Current Account Only",
         "question": "What are the main features of NUST Sahar Term Deposit ?",
-        "answer": "· Flexibility to choose from multiple tenure: 1, 3 or 5 Years · Investments starts from as low as Rs. 50,000/- · Monthly Profit Payment in your NUST Sahar Current Account · Roll-over option available Note: Deals to be booked from NUST Sahar Current Account Only",
+        "answer": "Flexibility to choose from multiple tenure: 1, 3 or 5 Years · Investments starts from as low as Rs. 50,000/- · Monthly Profit Payment in your NUST Sahar Current Account · Roll-over option available Note: Deals to be booked from NUST Sahar Current Account Only",
         "product": "NUST Sahar Accounts",
         "sheet": "NSA"
     },
@@ -945,9 +945,9 @@
     },
     {
         "id": 118,
-        "text": "Question: Who can apply for NUST Personal Finance?\nAnswer: · Armed Forces Officers - Serving employees - Retired employees 2. JCOs/Equivalent & Lower Cadres - Serving employees - Retired employees 3. Allied Armed Forces (SPD & its allied concerns) and Civilians (in GHQ/NHQ & AHQ) - Serving employees (Permanent & Contractual Employees) 4. Fauji Foundation Group - Permanent employees - Contractual employees 5. Salaried Individuals - Permanent employees - Contractual employees 6. GOP / Semi Government / Autonomous Bodies - Permanent employees - Contractual employees - Retired employees 7. NUST Employees (governed under HR Policy)",
+        "text": "Question: Who can apply for NUST Personal Finance?\nAnswer: 1· Armed Forces Officers - Serving employees - Retired employees 2. JCOs/Equivalent & Lower Cadres - Serving employees - Retired employees 3. Allied Armed Forces (SPD & its allied concerns) and Civilians (in GHQ/NHQ & AHQ) - Serving employees (Permanent & Contractual Employees) 4. Fauji Foundation Group - Permanent employees - Contractual employees 5. Salaried Individuals - Permanent employees - Contractual employees 6. GOP / Semi Government / Autonomous Bodies - Permanent employees - Contractual employees - Retired employees 7. NUST Employees (governed under HR Policy)",
         "question": "Who can apply for NUST Personal Finance?",
-        "answer": "· Armed Forces Officers - Serving employees - Retired employees 2. JCOs/Equivalent & Lower Cadres - Serving employees - Retired employees 3. Allied Armed Forces (SPD & its allied concerns) and Civilians (in GHQ/NHQ & AHQ) - Serving employees (Permanent & Contractual Employees) 4. Fauji Foundation Group - Permanent employees - Contractual employees 5. Salaried Individuals - Permanent employees - Contractual employees 6. GOP / Semi Government / Autonomous Bodies - Permanent employees - Contractual employees - Retired employees 7. NUST Employees (governed under HR Policy)",
+        "answer": "1· Armed Forces Officers - Serving employees - Retired employees 2. JCOs/Equivalent & Lower Cadres - Serving employees - Retired employees 3. Allied Armed Forces (SPD & its allied concerns) and Civilians (in GHQ/NHQ & AHQ) - Serving employees (Permanent & Contractual Employees) 4. Fauji Foundation Group - Permanent employees - Contractual employees 5. Salaried Individuals - Permanent employees - Contractual employees 6. GOP / Semi Government / Autonomous Bodies - Permanent employees - Contractual employees - Retired employees 7. NUST Employees (governed under HR Policy)",
         "product": "NUST Personal Finance",
         "sheet": "PF"
     },
@@ -1049,256 +1049,256 @@
     },
     {
         "id": 131,
-        "text": "Question: Who can apply for NUST Credit Card Facility?\nAnswer: Salaried Individuals Self Employed Businessman/Woman (SEB) Self Employed Professionals (SEP) Specially Abled Persons/Visually Impaired Person/Persons with Disabilities (PWD), Women. Individuals having verifiable source of income can apply for NUST Mastercard Credit Card.",
-        "question": "Who can apply for NUST Credit Card Facility?",
+        "text": "Question: 1.Who can apply for NUST Credit Card Facility?\nAnswer: Salaried Individuals Self Employed Businessman/Woman (SEB) Self Employed Professionals (SEP) Specially Abled Persons/Visually Impaired Person/Persons with Disabilities (PWD), Women. Individuals having verifiable source of income can apply for NUST Mastercard Credit Card.",
+        "question": "1.Who can apply for NUST Credit Card Facility?",
         "answer": "Salaried Individuals Self Employed Businessman/Woman (SEB) Self Employed Professionals (SEP) Specially Abled Persons/Visually Impaired Person/Persons with Disabilities (PWD), Women. Individuals having verifiable source of income can apply for NUST Mastercard Credit Card.",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 132,
-        "text": "Question: What is the minimum age for applying NUST Mastercard Credit Card?\nAnswer: Minimum 21 years old & Pakistani resident, can apply for NUST MasterCard Credit Card.",
-        "question": "What is the minimum age for applying NUST Mastercard Credit Card?",
+        "text": "Question: 2.What is the minimum age for applying NUST Mastercard Credit Card?\nAnswer: Minimum 21 years old & Pakistani resident, can apply for NUST MasterCard Credit Card.",
+        "question": "2.What is the minimum age for applying NUST Mastercard Credit Card?",
         "answer": "Minimum 21 years old & Pakistani resident, can apply for NUST MasterCard Credit Card.",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 133,
-        "text": "Question: What is the maximum age for applying NUST Mastercard Credit Card?\nAnswer: Salaried (Permanent): 60 years Salaried (Contractual)/ Pensioners/SEB/SEP: 65 years",
-        "question": "What is the maximum age for applying NUST Mastercard Credit Card?",
+        "text": "Question: 3. What is the maximum age for applying NUST Mastercard Credit Card?\nAnswer: Salaried (Permanent): 60 years Salaried (Contractual)/ Pensioners/SEB/SEP: 65 years",
+        "question": "3. What is the maximum age for applying NUST Mastercard Credit Card?",
         "answer": "Salaried (Permanent): 60 years Salaried (Contractual)/ Pensioners/SEB/SEP: 65 years",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 134,
-        "text": "Question: Can overseas Pakistanis obtain Credit Card facility from NUST?\nAnswer: Yes. The individuals maintaining FC account with NUST, Remittances/ Roshan Digital Account holders/ Holders of Naya Pakistan Certificates can apply for NUST MasterCard Credit Cards on lien basis. Note: Facility can only be allowed in case of FC joint account maintaining with NUST (one person should be residing in Pakistan).",
-        "question": "Can overseas Pakistanis obtain Credit Card facility from NUST?",
+        "text": "Question: 4.Can overseas Pakistanis obtain Credit Card facility from NUST?\nAnswer: Yes. The individuals maintaining FC account with NUST, Remittances/ Roshan Digital Account holders/ Holders of Naya Pakistan Certificates can apply for NUST MasterCard Credit Cards on lien basis. Note: Facility can only be allowed in case of FC joint account maintaining with NUST (one person should be residing in Pakistan).",
+        "question": "4.Can overseas Pakistanis obtain Credit Card facility from NUST?",
         "answer": "Yes. The individuals maintaining FC account with NUST, Remittances/ Roshan Digital Account holders/ Holders of Naya Pakistan Certificates can apply for NUST MasterCard Credit Cards on lien basis. Note: Facility can only be allowed in case of FC joint account maintaining with NUST (one person should be residing in Pakistan).",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 135,
-        "text": "Question: What is the minimum and maximum financing amount?\nAnswer: Clean facility, Minimum Rs. 30,000/- and maximum up to 3.0 Million or as per 40% Debt Burden Ratio subject to SBP PRs.",
-        "question": "What is the minimum and maximum financing amount?",
+        "text": "Question: 5. What is the minimum and maximum financing amount?\nAnswer: Clean facility, Minimum Rs. 30,000/- and maximum up to 3.0 Million or as per 40% Debt Burden Ratio subject to SBP PRs.",
+        "question": "5. What is the minimum and maximum financing amount?",
         "answer": "Clean facility, Minimum Rs. 30,000/- and maximum up to 3.0 Million or as per 40% Debt Burden Ratio subject to SBP PRs.",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 136,
-        "text": "Question: What would be the financing tenure?\nAnswer: NUST Credit Card is an Evergreen facility & renewable after expiry of credit card.",
-        "question": "What would be the financing tenure?",
+        "text": "Question: 6. What would be the financing tenure?\nAnswer: NUST Credit Card is an Evergreen facility & renewable after expiry of credit card.",
+        "question": "6. What would be the financing tenure?",
         "answer": "NUST Credit Card is an Evergreen facility & renewable after expiry of credit card.",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 137,
-        "text": "Question: What is the minimum monthly income criterion?\nAnswer: GOP / Semi Govt. / Autonomous Bodies etc: Permanent, Rs. 35,000/- Contractual, Rs. 45,000/- Approved Company: Permanent, Rs. 40,000/- Contractual, Rs. 60,000/- Non-Approved(Salary account with NUST): Rs. 70,000/- Contractual, Rs. 80,000/-",
-        "question": "What is the minimum monthly income criterion?",
+        "text": "Question: 7. What is the minimum monthly income criterion?\nAnswer: GOP / Semi Govt. / Autonomous Bodies etc: Permanent, Rs. 35,000/- Contractual, Rs. 45,000/- Approved Company: Permanent, Rs. 40,000/- Contractual, Rs. 60,000/- Non-Approved(Salary account with NUST): Rs. 70,000/- Contractual, Rs. 80,000/-",
+        "question": "7. What is the minimum monthly income criterion?",
         "answer": "GOP / Semi Govt. / Autonomous Bodies etc: Permanent, Rs. 35,000/- Contractual, Rs. 45,000/- Approved Company: Permanent, Rs. 40,000/- Contractual, Rs. 60,000/- Non-Approved(Salary account with NUST): Rs. 70,000/- Contractual, Rs. 80,000/-",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 138,
-        "text": "Question: In which area of the country one can avail Credit Card facility?\nAnswer: Credit Card can be availed from all cities / Areas without discrimination",
-        "question": "In which area of the country one can avail Credit Card facility?",
+        "text": "Question: 8. In which area of the country one can avail Credit Card facility?\nAnswer: Credit Card can be availed from all cities / Areas without discrimination",
+        "question": "8. In which area of the country one can avail Credit Card facility?",
         "answer": "Credit Card can be availed from all cities / Areas without discrimination",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 139,
-        "text": "Question: What is the Application processing time?\nAnswer: The processing time of Credit Card facility is 10 working days form login till approval subject to complete application with required documentation",
-        "question": "What is the Application processing time?",
+        "text": "Question: 9. What is the Application processing time?\nAnswer: The processing time of Credit Card facility is 10 working days form login till approval subject to complete application with required documentation",
+        "question": "9. What is the Application processing time?",
         "answer": "The processing time of Credit Card facility is 10 working days form login till approval subject to complete application with required documentation",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 140,
-        "text": "Question: What are the Application Processing Charges?\nAnswer: Processing Charges will be as per prevailing Bank’s Schedule of Charges (SOC).",
-        "question": "What are the Application Processing Charges?",
+        "text": "Question: 10. What are the Application Processing Charges?\nAnswer: Processing Charges will be as per prevailing Bank’s Schedule of Charges (SOC).",
+        "question": "10. What are the Application Processing Charges?",
         "answer": "Processing Charges will be as per prevailing Bank’s Schedule of Charges (SOC).",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 141,
-        "text": "Question: What happens if I fail to fulfil your payment obligations?\nAnswer: In case of overdue / default, recovery department of NUST will contact you, your loan related details will be reported to Credit Bureau. Late payment and cheque return charges may also be applicable as per prevailing schedule of charges. Legal proceeding may also be initiated by the Bank.",
-        "question": "What happens if I fail to fulfil your payment obligations?",
+        "text": "Question: 11. What happens if I fail to fulfil your payment obligations?\nAnswer: In case of overdue / default, recovery department of NUST will contact you, your loan related details will be reported to Credit Bureau. Late payment and cheque return charges may also be applicable as per prevailing schedule of charges. Legal proceeding may also be initiated by the Bank.",
+        "question": "11. What happens if I fail to fulfil your payment obligations?",
         "answer": "In case of overdue / default, recovery department of NUST will contact you, your loan related details will be reported to Credit Bureau. Late payment and cheque return charges may also be applicable as per prevailing schedule of charges. Legal proceeding may also be initiated by the Bank.",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 142,
-        "text": "Question: How will I get update of my Credit Card Application?\nAnswer: You can visit/ call or send email at our Customer Services centre(s) as well. Services centre(s) as well. Email Address: CustomerServices@NUSTbank.com.pk",
-        "question": "How will I get update of my Credit Card Application?",
+        "text": "Question: 12. How will I get update of my Credit Card Application?\nAnswer: You can visit/ call or send email at our Customer Services centre(s) as well. Services centre(s) as well. Email Address: CustomerServices@NUSTbank.com.pk",
+        "question": "12. How will I get update of my Credit Card Application?",
         "answer": "You can visit/ call or send email at our Customer Services centre(s) as well. Services centre(s) as well. Email Address: CustomerServices@NUSTbank.com.pk",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 143,
-        "text": "Question: Is there a limit to international Spending?\nAnswer: As per SBP directives i.e. Nov 1, 2022 industry-wide annual maximum limit of USD 30,000/- per individual on card-based (debit/credit and virtual cards) cross-border transactions It is the primary responsibility of a customer to ensure that his/her annual limit is not breached at any time. In order to avoid any inconvenience, you are requested to please restrict your international spending within the defined limit. Cross-border commercial payments through cards issued to individuals are not permissible. Note: NUST Bank has the right to reject any application as per Bank’s criteria.",
-        "question": "Is there a limit to international Spending?",
+        "text": "Question: 13. Is there a limit to international Spending?\nAnswer: As per SBP directives i.e. Nov 1, 2022 industry-wide annual maximum limit of USD 30,000/- per individual on card-based (debit/credit and virtual cards) cross-border transactions It is the primary responsibility of a customer to ensure that his/her annual limit is not breached at any time. In order to avoid any inconvenience, you are requested to please restrict your international spending within the defined limit. Cross-border commercial payments through cards issued to individuals are not permissible. Note: NUST Bank has the right to reject any application as per Bank’s criteria.",
+        "question": "13. Is there a limit to international Spending?",
         "answer": "As per SBP directives i.e. Nov 1, 2022 industry-wide annual maximum limit of USD 30,000/- per individual on card-based (debit/credit and virtual cards) cross-border transactions It is the primary responsibility of a customer to ensure that his/her annual limit is not breached at any time. In order to avoid any inconvenience, you are requested to please restrict your international spending within the defined limit. Cross-border commercial payments through cards issued to individuals are not permissible. Note: NUST Bank has the right to reject any application as per Bank’s criteria.",
         "product": "NUST Bank Mastercard",
         "sheet": "NMC"
     },
     {
         "id": 144,
-        "text": "Question: What types of Housing Finance products does NUST offer?\nAnswer: Purchase of House/ Apartment/ Flat/ Residential Unit Purchase of Plot (+) plus Construction Construction of House/ Residential Unit on already owned residential plot Renovation of House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/DFIs. Note: Housing finance will not be allowed purely for the purchase of land/ plot",
-        "question": "What types of Housing Finance products does NUST offer?",
+        "text": "Question: 1.What types of Housing Finance products does NUST offer?\nAnswer: Purchase of House/ Apartment/ Flat/ Residential Unit Purchase of Plot (+) plus Construction Construction of House/ Residential Unit on already owned residential plot Renovation of House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/DFIs. Note: Housing finance will not be allowed purely for the purchase of land/ plot",
+        "question": "1.What types of Housing Finance products does NUST offer?",
         "answer": "Purchase of House/ Apartment/ Flat/ Residential Unit Purchase of Plot (+) plus Construction Construction of House/ Residential Unit on already owned residential plot Renovation of House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/DFIs. Note: Housing finance will not be allowed purely for the purchase of land/ plot",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 145,
-        "text": "Question: What is the minimum age for applying NUST Mortgage Finance?\nAnswer: Salaried : 21 Years SEB/SEP: 23 Years",
-        "question": "What is the minimum age for applying NUST Mortgage Finance?",
+        "text": "Question: 2.What is the minimum age for applying NUST Mortgage Finance?\nAnswer: Salaried : 21 Years SEB/SEP: 23 Years",
+        "question": "2.What is the minimum age for applying NUST Mortgage Finance?",
         "answer": "Salaried : 21 Years SEB/SEP: 23 Years",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 146,
-        "text": "Question: What is the Maximum age criteria for applying NUST Mortgage Finance?\nAnswer: Salaried Permanent : 60 Years at the maturity of loan Salaried Contractual: 65 Years at the Matrurity of loan Pensioners: 65 Years at the maturity of loan SEB/SEP: 65 Years at the maturity of loan",
-        "question": "What is the Maximum age criteria for applying NUST Mortgage Finance?",
+        "text": "Question: 3. What is the Maximum age criteria for applying NUST Mortgage Finance?\nAnswer: Salaried Permanent : 60 Years at the maturity of loan Salaried Contractual: 65 Years at the Matrurity of loan Pensioners: 65 Years at the maturity of loan SEB/SEP: 65 Years at the maturity of loan",
+        "question": "3. What is the Maximum age criteria for applying NUST Mortgage Finance?",
         "answer": "Salaried Permanent : 60 Years at the maturity of loan Salaried Contractual: 65 Years at the Matrurity of loan Pensioners: 65 Years at the maturity of loan SEB/SEP: 65 Years at the maturity of loan",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 147,
-        "text": "Question: Can overseas Pakistanis obtain House Finance facility from NUST?\nAnswer: Yes. However can apply as Co-Borrower with veriable income. Basic borrower from Pakistan should also meet the required basic criteria for MF.",
-        "question": "Can overseas Pakistanis obtain House Finance facility from NUST?",
+        "text": "Question: 4.Can overseas Pakistanis obtain House Finance facility from NUST?\nAnswer: Yes. However can apply as Co-Borrower with veriable income. Basic borrower from Pakistan should also meet the required basic criteria for MF.",
+        "question": "4.Can overseas Pakistanis obtain House Finance facility from NUST?",
         "answer": "Yes. However can apply as Co-Borrower with veriable income. Basic borrower from Pakistan should also meet the required basic criteria for MF.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 148,
-        "text": "Question: What is the minimum and maximum financing amount?\nAnswer: The minimum financing amount is Rs. 500,000/. The maximum financing limit will be up to Rs.100,000,000/- subject to 50% Debt Burden Ratio(DBR) as per SBP PRs for Housing Finance.",
-        "question": "What is the minimum and maximum financing amount?",
+        "text": "Question: 5. What is the minimum and maximum financing amount?\nAnswer: The minimum financing amount is Rs. 500,000/. The maximum financing limit will be up to Rs.100,000,000/- subject to 50% Debt Burden Ratio(DBR) as per SBP PRs for Housing Finance.",
+        "question": "5. What is the minimum and maximum financing amount?",
         "answer": "The minimum financing amount is Rs. 500,000/. The maximum financing limit will be up to Rs.100,000,000/- subject to 50% Debt Burden Ratio(DBR) as per SBP PRs for Housing Finance.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 149,
-        "text": "Question: What would be the financing tenure?\nAnswer: Loan tenure is Minimum 3 years and maximum 25 years",
-        "question": "What would be the financing tenure?",
+        "text": "Question: 6. What would be the financing tenure?\nAnswer: Loan tenure is Minimum 3 years and maximum 25 years",
+        "question": "6. What would be the financing tenure?",
         "answer": "Loan tenure is Minimum 3 years and maximum 25 years",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 150,
-        "text": "Question: Can I obtain financing on my owned property by mortgaging it?\nAnswer: Yes, purpose of finance has to be in line with the purpose defined by regulator i.e. Financing for construction of house on owned residential plot. Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/ DFIs. Renovation of owned House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement of Residential Unit",
-        "question": "Can I obtain financing on my owned property by mortgaging it?",
+        "text": "Question: 7. Can I obtain financing on my owned property by mortgaging it?\nAnswer: Yes, purpose of finance has to be in line with the purpose defined by regulator i.e. Financing for construction of house on owned residential plot. Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/ DFIs. Renovation of owned House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement of Residential Unit",
+        "question": "7. Can I obtain financing on my owned property by mortgaging it?",
         "answer": "Yes, purpose of finance has to be in line with the purpose defined by regulator i.e. Financing for construction of house on owned residential plot. Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/ DFIs. Renovation of owned House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement of Residential Unit",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 151,
-        "text": "Question: Can I avail more than one House loan?\nAnswer: Yes. One can avail two Mortgage Loans at a time from NUST Bank within Debt Burden Ratio (DBR) as per prevailing SBP PRs for Housing Finance.",
-        "question": "Can I avail more than one House loan?",
+        "text": "Question: 8. Can I avail more than one House loan?\nAnswer: Yes. One can avail two Mortgage Loans at a time from NUST Bank within Debt Burden Ratio (DBR) as per prevailing SBP PRs for Housing Finance.",
+        "question": "8. Can I avail more than one House loan?",
         "answer": "Yes. One can avail two Mortgage Loans at a time from NUST Bank within Debt Burden Ratio (DBR) as per prevailing SBP PRs for Housing Finance.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 152,
-        "text": "Question: Can I avail income tax rebate on House Financing?\nAnswer: Yes, one can claim tax rebate against its House Finance mark-up paid during the year, or as per prevailing Tax laws of the country.",
-        "question": "Can I avail income tax rebate on House Financing?",
+        "text": "Question: 9. Can I avail income tax rebate on House Financing?\nAnswer: Yes, one can claim tax rebate against its House Finance mark-up paid during the year, or as per prevailing Tax laws of the country.",
+        "question": "9. Can I avail income tax rebate on House Financing?",
         "answer": "Yes, one can claim tax rebate against its House Finance mark-up paid during the year, or as per prevailing Tax laws of the country.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 153,
-        "text": "Question: What is the minimum monthly income criterion?\nAnswer: Salaried: Permanent Rs. 50,000/-, Contractual Rs. 60,000/-, Govt. Employee Contractual 75,000/- Armed Forces: 25,000/-",
-        "question": "What is the minimum monthly income criterion?",
+        "text": "Question: 10. What is the minimum monthly income criterion?\nAnswer: Salaried: Permanent Rs. 50,000/-, Contractual Rs. 60,000/-, Govt. Employee Contractual 75,000/- Armed Forces: 25,000/-",
+        "question": "10. What is the minimum monthly income criterion?",
         "answer": "Salaried: Permanent Rs. 50,000/-, Contractual Rs. 60,000/-, Govt. Employee Contractual 75,000/- Armed Forces: 25,000/-",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 154,
-        "text": "Question: Can I club income of Co-Borrower?\nAnswer: Yes. Clubbing of Co-Borrower income may be allowed in case of spouse/son/parents/un-married daughter/Sibling.",
-        "question": "Can I club income of Co-Borrower?",
+        "text": "Question: 11. Can I club income of Co-Borrower?\nAnswer: Yes. Clubbing of Co-Borrower income may be allowed in case of spouse/son/parents/un-married daughter/Sibling.",
+        "question": "11. Can I club income of Co-Borrower?",
         "answer": "Yes. Clubbing of Co-Borrower income may be allowed in case of spouse/son/parents/un-married daughter/Sibling.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 155,
-        "text": "Question: What are the processing charges for NUST Mortgage FInance?\nAnswer: Processing Charges will be as per prevailing Bank’s Schedule of Charges (SOC).",
-        "question": "What are the processing charges for NUST Mortgage FInance?",
+        "text": "Question: 12. What are the processing charges for NUST Mortgage FInance?\nAnswer: Processing Charges will be as per prevailing Bank’s Schedule of Charges (SOC).",
+        "question": "12. What are the processing charges for NUST Mortgage FInance?",
         "answer": "Processing Charges will be as per prevailing Bank’s Schedule of Charges (SOC).",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 156,
-        "text": "Question: What is the repayment mode?\nAnswer: Payment of Equal Monthly Installment (EMI) comprising of principal, mark-up and Insurance cost etc. will be made through Direct Debit Authority (DDA) of borrower’s account maintained with NUST.",
-        "question": "What is the repayment mode?",
+        "text": "Question: 13. What is the repayment mode?\nAnswer: Payment of Equal Monthly Installment (EMI) comprising of principal, mark-up and Insurance cost etc. will be made through Direct Debit Authority (DDA) of borrower’s account maintained with NUST.",
+        "question": "13. What is the repayment mode?",
         "answer": "Payment of Equal Monthly Installment (EMI) comprising of principal, mark-up and Insurance cost etc. will be made through Direct Debit Authority (DDA) of borrower’s account maintained with NUST.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 157,
-        "text": "Question: Is Property insurance coverage mandatory?\nAnswer: Yes. Property Insurance is mandatory; Insurance premium is born by the borrower. It covers construction cost of financed house and value of property in case of apartment.",
-        "question": "Is Property insurance coverage mandatory?",
+        "text": "Question: 14. Is Property insurance coverage mandatory?\nAnswer: Yes. Property Insurance is mandatory; Insurance premium is born by the borrower. It covers construction cost of financed house and value of property in case of apartment.",
+        "question": "14. Is Property insurance coverage mandatory?",
         "answer": "Yes. Property Insurance is mandatory; Insurance premium is born by the borrower. It covers construction cost of financed house and value of property in case of apartment.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 158,
-        "text": "Question: Can I make balloon payments or premature termination is allowed?\nAnswer: Yes, Balloon payment or premature termination option is available for all customers. Charges will be applied as per prevailing Bank’s schedule of charges.",
-        "question": "Can I make balloon payments or premature termination is allowed?",
+        "text": "Question: 15. Can I make balloon payments or premature termination is allowed?\nAnswer: Yes, Balloon payment or premature termination option is available for all customers. Charges will be applied as per prevailing Bank’s schedule of charges.",
+        "question": "15. Can I make balloon payments or premature termination is allowed?",
         "answer": "Yes, Balloon payment or premature termination option is available for all customers. Charges will be applied as per prevailing Bank’s schedule of charges.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 159,
-        "text": "Question: Can the loan amount be used for any other purpose?\nAnswer: No, the loan amount can only be used for specific purpose i.e. Purchase of House/ Apartment/ Flat/ Residential Unit Purchase of Plot (+) plus Construction Construction of House/ Residential Unit on already owned plot Renovation of House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/DFIs.",
-        "question": "Can the loan amount be used for any other purpose?",
+        "text": "Question: 16. Can the loan amount be used for any other purpose?\nAnswer: No, the loan amount can only be used for specific purpose i.e. Purchase of House/ Apartment/ Flat/ Residential Unit Purchase of Plot (+) plus Construction Construction of House/ Residential Unit on already owned plot Renovation of House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/DFIs.",
+        "question": "16. Can the loan amount be used for any other purpose?",
         "answer": "No, the loan amount can only be used for specific purpose i.e. Purchase of House/ Apartment/ Flat/ Residential Unit Purchase of Plot (+) plus Construction Construction of House/ Residential Unit on already owned plot Renovation of House/ Apartment/ Flat/ Residential Unit Extension/ Expansion/ Improvement Balance Transfer Facility (BTF) against existing financing facility of borrower from other banks/DFIs.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 160,
-        "text": "Question: In which area of the country one can avail House Finance form NUST?\nAnswer: Mortgage Finance facility can be availed from all cities / areas without discrimination.",
-        "question": "In which area of the country one can avail House Finance form NUST?",
+        "text": "Question: 17.In which area of the country one can avail House Finance form NUST?\nAnswer: Mortgage Finance facility can be availed from all cities / areas without discrimination.",
+        "question": "17.In which area of the country one can avail House Finance form NUST?",
         "answer": "Mortgage Finance facility can be availed from all cities / areas without discrimination.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 161,
-        "text": "Question: Where financing is not allowed?\nAnswer: The financing shall not be allowed for; Commercial Properties. Construction or possession of land on the encroached area of Public/ Government Land. Properties built against Housing Authority By-Laws.",
-        "question": "Where financing is not allowed?",
+        "text": "Question: 18. Where financing is not allowed?\nAnswer: The financing shall not be allowed for; Commercial Properties. Construction or possession of land on the encroached area of Public/ Government Land. Properties built against Housing Authority By-Laws.",
+        "question": "18. Where financing is not allowed?",
         "answer": "The financing shall not be allowed for; Commercial Properties. Construction or possession of land on the encroached area of Public/ Government Land. Properties built against Housing Authority By-Laws.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
     },
     {
         "id": 162,
-        "text": "Question: What is the Application processing time?\nAnswer: The processing time of Mortgage Finance is 30 days form login till approval subject to complete application with required documents.",
-        "question": "What is the Application processing time?",
+        "text": "Question: 14. What is the Application processing time?\nAnswer: The processing time of Mortgage Finance is 30 days form login till approval subject to complete application with required documents.",
+        "question": "14. What is the Application processing time?",
         "answer": "The processing time of Mortgage Finance is 30 days form login till approval subject to complete application with required documents.",
         "product": "NUST Bank Mortgage Finance",
         "sheet": "NMF"
@@ -1617,9 +1617,9 @@
     },
     {
         "id": 202,
-        "text": "Question: What is the current Mark-up rate of NUST Ujala Finance?\nAnswer: % per annum for all *Markup at 12M Kibor + 4% Per Annum to be charged till refinance claim reimbursed by SBP.",
+        "text": "Question: What is the current Mark-up rate of NUST Ujala Finance?\nAnswer: 6 % per annum for all *Markup at 12M Kibor + 4% Per Annum to be charged till refinance claim reimbursed by SBP.",
         "question": "What is the current Mark-up rate of NUST Ujala Finance?",
-        "answer": "% per annum for all *Markup at 12M Kibor + 4% Per Annum to be charged till refinance claim reimbursed by SBP.",
+        "answer": "6 % per annum for all *Markup at 12M Kibor + 4% Per Annum to be charged till refinance claim reimbursed by SBP.",
         "product": "NUST Ujala Finance",
         "sheet": "NUF"
     },
@@ -1953,9 +1953,9 @@
     },
     {
         "id": 244,
-        "text": "Question: Is there any quota for womens?\nAnswer: % of the loans will go to women borrowers",
+        "text": "Question: Is there any quota for womens?\nAnswer: 25% of the loans will go to women borrowers",
         "question": "Is there any quota for womens?",
-        "answer": "% of the loans will go to women borrowers",
+        "answer": "25% of the loans will go to women borrowers",
         "product": "Prime Minister Youth Business & Agriculture Loan Scheme",
         "sheet": "PMYB &ALS"
     },
@@ -2420,7 +2420,7 @@
         "text": "Question: Is there a limit on the amount I can transfer through the mobile banking app?\nAnswer: Yes, 1 million is the current daily limit. Transfer limits vary based on your account type. Check the “Limits” section in the app for specifics on daily transfer limits.",
         "question": "Is there a limit on the amount I can transfer through the mobile banking app?",
         "answer": "Yes, 1 million is the current daily limit. Transfer limits vary based on your account type. Check the “Limits” section in the app for specifics on daily transfer limits.",
-        "product": "Mobile App – Funds Transfer / RAAST",
+        "product": "Mobile App - Funds Transfer / RAAST",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2428,7 +2428,7 @@
         "text": "Question: How can I change limit of funds transfer?\nAnswer: To change your funds, transfer limit, go to the “My profile” section and select “Manage Limit” in the app, then select “Change FT/IBFT” limits.",
         "question": "How can I change limit of funds transfer?",
         "answer": "To change your funds, transfer limit, go to the “My profile” section and select “Manage Limit” in the app, then select “Change FT/IBFT” limits.",
-        "product": "Mobile App – Funds Transfer / RAAST",
+        "product": "Mobile App - Funds Transfer / RAAST",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2436,7 +2436,7 @@
         "text": "Question: How can I add or update beneficiaries/ recipients of mobile banking app for funds transfer?\nAnswer: In the app, navigate to the “Transfer Funds” section and select “New Beneficiaries.” Here, you can choose to add a new beneficiary by entering their details or update existing beneficiary information.",
         "question": "How can I add or update beneficiaries/ recipients of mobile banking app for funds transfer?",
         "answer": "In the app, navigate to the “Transfer Funds” section and select “New Beneficiaries.” Here, you can choose to add a new beneficiary by entering their details or update existing beneficiary information.",
-        "product": "Mobile App – Funds Transfer / RAAST",
+        "product": "Mobile App - Funds Transfer / RAAST",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2444,7 +2444,7 @@
         "text": "Question: How do I perform international transactions through mobile app?\nAnswer: One can enable international transactions by tapping on card management, select manage debit card and choose “international tranx activation” option.",
         "question": "How do I perform international transactions through mobile app?",
         "answer": "One can enable international transactions by tapping on card management, select manage debit card and choose “international tranx activation” option.",
-        "product": "Mobile App – Funds Transfer / RAAST",
+        "product": "Mobile App - Funds Transfer / RAAST",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2452,7 +2452,7 @@
         "text": "Question: Does the app support contactless payments or digital wallets?\nAnswer: For contactless payments NUST Bank has a separate mobile app named as NUST Digital Wallets. Customers can download and perform payments.",
         "question": "Does the app support contactless payments or digital wallets?",
         "answer": "For contactless payments NUST Bank has a separate mobile app named as NUST Digital Wallets. Customers can download and perform payments.",
-        "product": "Mobile App – Funds Transfer / RAAST",
+        "product": "Mobile App - Funds Transfer / RAAST",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2460,7 +2460,7 @@
         "text": "Question: Can I use the mobile app while I am overseas?\nAnswer: Yes, the NUST mobile app can be accessed globally. Ensure you have internet connectivity and your registered mobile number is active for OTPs if required.",
         "question": "Can I use the mobile app while I am overseas?",
         "answer": "Yes, the NUST mobile app can be accessed globally. Ensure you have internet connectivity and your registered mobile number is active for OTPs if required.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2468,7 +2468,7 @@
         "text": "Question: What should I do if I forget my login password?\nAnswer: Tap on 'Forgot Password' on the login screen. Follow the steps to reset your password using your registered mobile number and verification details.",
         "question": "What should I do if I forget my login password?",
         "answer": "Tap on 'Forgot Password' on the login screen. Follow the steps to reset your password using your registered mobile number and verification details.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2476,7 +2476,7 @@
         "text": "Question: Can I reset my MPIN through the app?\nAnswer: Yes, after logging into the app, go to 'Profile' → 'Change MPIN' and follow the prompts to reset your MPIN securely.",
         "question": "Can I reset my MPIN through the app?",
         "answer": "Yes, after logging into the app, go to 'Profile' → 'Change MPIN' and follow the prompts to reset your MPIN securely.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2484,7 +2484,7 @@
         "text": "Question: What services are available under Bill Payment option?\nAnswer: You can pay utility bills, internet and mobile bills, and government fees using the 'Bill Payment' option in the app.",
         "question": "What services are available under Bill Payment option?",
         "answer": "You can pay utility bills, internet and mobile bills, and government fees using the 'Bill Payment' option in the app.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2492,7 +2492,7 @@
         "text": "Question: How can I recharge mobile balance or buy top-up?\nAnswer: Use the 'Mobile Top-Up' feature. Select your network, enter the mobile number and amount, and confirm with your MPIN.",
         "question": "How can I recharge mobile balance or buy top-up?",
         "answer": "Use the 'Mobile Top-Up' feature. Select your network, enter the mobile number and amount, and confirm with your MPIN.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2500,7 +2500,7 @@
         "text": "Question: Is biometric login supported in the app?\nAnswer: Yes, biometric login is supported. You can enable it under the 'Profile' section by turning on 'Fingerprint Login' for faster and secure access.",
         "question": "Is biometric login supported in the app?",
         "answer": "Yes, biometric login is supported. You can enable it under the 'Profile' section by turning on 'Fingerprint Login' for faster and secure access.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2508,7 +2508,7 @@
         "text": "Question: Can I view my debit card details using the mobile app?\nAnswer: You can view basic card details like the card status and activation options. For full card info, please contact the bank for security reasons.",
         "question": "Can I view my debit card details using the mobile app?",
         "answer": "You can view basic card details like the card status and activation options. For full card info, please contact the bank for security reasons.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2516,7 +2516,7 @@
         "text": "Question: How can I report an issue or give feedback within the app?\nAnswer: Go to the 'Contact Us' or 'Feedback' section in the app and submit your query or feedback. You can also email support@NUSTbank.com.pk.",
         "question": "How can I report an issue or give feedback within the app?",
         "answer": "Go to the 'Contact Us' or 'Feedback' section in the app and submit your query or feedback. You can also email support@NUSTbank.com.pk.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2524,7 +2524,7 @@
         "text": "Question: How can I deactivate or delete my mobile banking account?\nAnswer: For security reasons, deactivation or deletion requests must be submitted by calling the helpline at +92 (51) 111 000 494.",
         "question": "How can I deactivate or delete my mobile banking account?",
         "answer": "For security reasons, deactivation or deletion requests must be submitted by calling the helpline at +92 (51) 111 000 494.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     },
     {
@@ -2532,7 +2532,7 @@
         "text": "Question: Is the mobile app available in multiple languages?\nAnswer: Currently, the NUST mobile app supports English only. Multilingual support is being considered for future updates.",
         "question": "Is the mobile app available in multiple languages?",
         "answer": "Currently, the NUST mobile app supports English only. Multilingual support is being considered for future updates.",
-        "product": "Mobile App – App Features / Functionalities",
+        "product": "Mobile App - App Features / Functionalities",
         "sheet": "funds_transfer_app_features_faq.json"
     }
 ]
