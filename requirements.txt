@@ -1,0 +1,24 @@
+# Core LangChain ecosystem
+langchain-classic==1.0.1
+langchain-core==1.2.17
+langchain-community==0.4.1
+langchain-ollama==1.0.1
+langchain-huggingface==1.2.1
+langchain-text-splitters==1.1.1
+
+# Vector store: Milvus (Milvus Lite runs in-process — no server needed)
+pymilvus>=2.4.0            # includes milvus-lite
+langchain-milvus>=0.1.0
+
+# Embeddings
+sentence-transformers==5.2.3
+huggingface_hub==1.5.0
+
+# Stage-1 raw index (used only by embedder.py)
+faiss-cpu==1.13.2
+
+# LLM backend
+ollama==0.6.1
+
+# Data extraction (needed only for format_for_finetuning.py)
+openpyxl
