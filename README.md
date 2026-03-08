@@ -1,6 +1,6 @@
 # NUST Bank Product Knowledge -- RAG QA System
 
-A Retrieval-Augmented Generation pipeline that answers banking product questions using a locally-hosted Qwen 3.5 LLM grounded in a FAISS vector store built from the bank's product knowledge base.
+A Retrieval-Augmented Generation pipeline that answers banking product questions using a locally-hosted Qwen 3.5 LLM grounded in a **Milvus Lite** vector store built from the bank's product knowledge base.
 
 ## How It Works
 
@@ -23,9 +23,9 @@ NUST Bank-Product-Knowledge.xlsx
 | File | Description |
 |------|-------------|
 | `embedder.py` | Stage-1 embedder -- loads QA pairs, normalises text, encodes with `all-MiniLM-L6-v2`, writes a FAISS index and chunk metadata. |
-| `embedder_2.py` | Stage-2 embedder -- converts chunk metadata into a LangChain-compatible FAISS vector store. |
-| `llm.py` | RAG inference engine -- loads the vector store, retrieves top-3 chunks, generates an answer with Qwen 3.5 via Ollama. |
-| `search.py` | Standalone CLI similarity search over the raw FAISS index (no LLM). |
+| `embedder_2.py` | Stage-2 embedder -- converts chunk metadata into a Milvus Lite collection (`data/milvus_bank.db`). |
+| `llm.py` | RAG inference engine -- loads Milvus, retrieves top-3 chunks, generates an answer with Qwen 3.5 via Ollama. |
+| `search.py` | Standalone CLI similarity search over the Milvus collection (no LLM). |
 | `funds_transer_app_features_faq.json` | Supplementary mobile-app FAQ data. |
 | `requirements.txt` | Python dependencies. |
 
@@ -51,8 +51,8 @@ pip install -r requirements.txt
 python data/format_for_finetuning.py
 
 # 3  Build embeddings (run in order)
-python embedder.py
-python embedder_2.py
+python embedder.py        # produces chunk_metadata.json
+python embedder_2.py      # produces data/milvus_bank.db  (Milvus Lite)
 
 # 4  Start Ollama (in a separate terminal)
 ollama serve

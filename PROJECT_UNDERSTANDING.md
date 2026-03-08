@@ -256,13 +256,72 @@ print(result)
 
 ---
 
+## Milvus Setup Guide
+
+### Option A — Milvus Lite (default, recommended for development / Colab)
+No setup needed beyond installing the package. Milvus Lite is bundled inside `pymilvus` and stores everything in a single `.db` file.
+
+```bash
+pip install "pymilvus>=2.4.0" "langchain-milvus>=0.1.0"
+```
+
+The database file `data/milvus_bank.db` is created automatically when you run `embedder_2.py`.
+
+---
+
+### Option B — Milvus Standalone (Docker, for production or larger datasets)
+
+1. **Install Docker Desktop** from https://www.docker.com/products/docker-desktop
+
+2. **Download and start Milvus Standalone** (single command):
+   ```bash
+   curl -sfL https://raw.githubusercontent.com/milvus-io/milvus/master/scripts/standalone_embed.sh -o standalone_embed.sh
+   bash standalone_embed.sh start
+   ```
+   This pulls the Milvus Docker image and starts the service on port `19530`.
+
+3. **Verify it's running:**
+   ```bash
+   docker ps | grep milvus
+   ```
+
+4. **Switch the connection string** in `embedder_2.py` and `llm.py`:
+   ```python
+   # Replace this (Milvus Lite):
+   connection_args={"uri": "data/milvus_bank.db"}
+
+   # With this (Milvus Standalone):
+   connection_args={"uri": "http://localhost:19530"}
+   ```
+
+5. **Stop Milvus** when done:
+   ```bash
+   bash standalone_embed.sh stop
+   ```
+
+---
+
+### Milvus Lite vs Standalone — Quick Comparison
+
+| Feature | Milvus Lite | Milvus Standalone |
+|---------|------------|-------------------|
+| Setup | Zero — just pip install | Docker required |
+| Storage | Single `.db` file | Persistent Docker volumes |
+| Scale | Up to ~1M vectors | Millions+ vectors |
+| Best for | Dev, Colab, small datasets | Production, larger datasets |
+| Port | None (in-process) | 19530 (gRPC) / 9091 (REST) |
+
+For this project (hundreds to low thousands of QA pairs) **Milvus Lite is the correct choice**.
+
+---
+
 ## File Summary Table
 
 | File | Role | Run Order |
 |------|------|-----------|
 | `data/inspect_data.py` | Inspect Excel structure (optional) | -- |
 | `data/format_for_finetuning.py` | Extract Q&A from Excel | 1st |
-| `embedder.py` | Build raw FAISS index + metadata | 2nd |
-| `embedder_2.py` | Build LangChain vector store | 3rd |
+| `embedder.py` | Build raw FAISS chunk metadata | 2nd |
+| `embedder_2.py` | Build Milvus Lite vector store | 3rd |
 | `llm.py` | RAG inference with Qwen 3.5 | 4th |
-| `search.py` | Direct similarity search (standalone) | Anytime after 2nd |
+| `search.py` | Direct similarity search via Milvus (standalone) | Anytime after 3rd |
