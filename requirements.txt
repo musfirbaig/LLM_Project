@@ -2,7 +2,6 @@
 langchain-classic==1.0.1
 langchain-core==1.2.17
 langchain-community==0.4.1
-langchain-ollama==1.0.1
 langchain-huggingface==1.2.1
 langchain-text-splitters==1.1.1
 
@@ -17,18 +16,20 @@ huggingface_hub==1.5.0
 # Stage-1 raw index (used only by embedder.py)
 faiss-cpu==1.13.2
 
-# LLM backend
-ollama==0.6.1
+# LLM — native HuggingFace inference (replaces Ollama)
+torch>=2.1.0
+transformers>=4.45.0
+peft>=0.12.0
+accelerate>=0.34.0
+
+# Optional: 4-bit quantisation (GPU only, not needed on CPU)
+# bitsandbytes>=0.43.1
 
 # Data extraction (needed only for format_for_finetuning.py)
 openpyxl
 
-# Fine-tuning stack (QLoRA)
-transformers>=4.45.0
+# Fine-tuning stack (QLoRA) — only needed if re-training
 datasets>=2.20.0
-peft>=0.12.0
-accelerate>=0.34.0
-bitsandbytes>=0.43.1
 
 # Interface
 streamlit>=1.39.0

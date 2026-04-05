@@ -1,99 +1,105 @@
-# NUST Bank Product Knowledge -- RAG QA System
+# NUST Bank RAG QA System
 
-A Retrieval-Augmented Generation pipeline that answers banking product questions using a locally-hosted Qwen 3.5 LLM grounded in a **Milvus Lite** vector store built from the bank's product knowledge base.
+> **Course:** Large Language Models (LLM) — Spring 2026, NUST  
+> **Group:** Muhammad Musfir Baig (409968) · Awais Nazir (406270)
+
+An AI-powered customer support assistant that answers questions about NUST Bank products using **Retrieval-Augmented Generation (RAG)** with a **fine-tuned Qwen 3.5-4B** language model.
+
+📖 **[Full Documentation → DOCUMENTATION.md](./DOCUMENTATION.md)**  
+🚀 **[Setup Guide → SETUP_GUIDE.md](./SETUP_GUIDE.md)**
+
+---
 
 ## How It Works
 
 ```
 NUST Bank-Product-Knowledge.xlsx
-            |
-   format_for_finetuning.py      (extract Q&A pairs)
-            |
-     all_qa_pairs.json
-            |
-       embedder.py               (raw FAISS index + metadata)
-            |
-       embedder_2.py             (LangChain vector store)
-            |
-         llm.py                  (RAG inference via Qwen 3.5)
+              │
+   format_for_finetuning.py  →  all_qa_pairs.json
+              │
+         embedder.py          →  chunk_metadata.json + faiss_index.bin
+              │
+         embedder_2.py        →  data/milvus_bank.db  (Milvus Lite)
+              │
+   ┌──────────┴──────────┐
+   │     Query time       │
+   │  User Question       │
+   │       ↓              │
+   │  Guardrails (pre)    │
+   │       ↓              │
+   │  Milvus search (k=3) │
+   │       ↓              │
+   │  Qwen 3.5-4B + LoRA  │
+   │       ↓              │
+   │  Guardrails (post)   │
+   │       ↓              │
+   │  Final Answer        │
+   └──────────────────────┘
 ```
 
-## Files
+---
 
-| File | Description |
-|------|-------------|
-| `embedder.py` | Stage-1 embedder -- loads QA pairs, normalises text, encodes with `all-MiniLM-L6-v2`, writes a FAISS index and chunk metadata. |
-| `embedder_2.py` | Stage-2 embedder -- converts chunk metadata into a Milvus Lite collection (`data/milvus_bank.db`). |
-| `llm.py` | RAG inference engine -- loads Milvus, retrieves top-3 chunks, generates an answer with Qwen 3.5 via Ollama. |
-| `guardrails.py` | Input/output safety layer used by `llm.py` (prompt-injection and harmful query checks + safe fallbacks). |
-| `search.py` | Standalone CLI similarity search over the Milvus collection (no LLM). |
-| `streamlit_app.py` | Web interface for asking questions and uploading new QA JSON data. |
-| `funds_transer_app_features_faq.json` | Supplementary mobile-app FAQ data. |
-| `requirements.txt` | Python dependencies. |
-| `scripts/validate_finetuning_data.py` | Validates chat JSONL fine-tuning data and writes deterministic train/val/test splits. |
-| `scripts/train_qlora_qwen.py` | QLoRA fine-tuning script for Qwen-style chat models using HuggingFace + PEFT. |
-
-### `data/` directory
-
-| File | Description |
-|------|-------------|
-| `format_for_finetuning.py` | Extracts QA pairs from the Excel workbook into JSON and JSONL fine-tuning formats. |
-| `inspect_data.py` | Diagnostic utility that prints shape, types, and sample rows for every Excel sheet. |
-| `all_qa_pairs.json` | Extracted QA pairs consumed by the embedding pipeline. |
-| `chunk_metadata.json` | Chunk-level metadata produced by `embedder.py`. |
-| `finetuning_data.jsonl` | Alpaca-style instruction format (for optional fine-tuning). |
-| `finetuning_data_chat.jsonl` | OpenAI chat-completion format (for optional fine-tuning). |
-| `vectorstore/` | LangChain FAISS index (`index.faiss` + `index.pkl`). |
-
-## Getting Started
+## Quick Start
 
 ```bash
-# 1  Install dependencies
+# 1. Install dependencies
 pip install -r requirements.txt
 
-# 2  Extract QA pairs from the Excel file
+# 2. Build knowledge base (first time only)
 python data/format_for_finetuning.py
+python embedder.py
+python embedder_2.py
 
-# 3  Build embeddings (run in order)
-python embedder.py        # produces chunk_metadata.json
-python embedder_2.py      # produces data/milvus_bank.db  (Milvus Lite)
-
-# 4  Start Ollama (in a separate terminal)
-ollama serve
-ollama pull qwen3.5:4b
-
-# 5  Run RAG QA
-python llm.py
-
-# 6  (Optional) Validate and split fine-tuning data
-python scripts/validate_finetuning_data.py
-
-# 7  (Optional) Fine-tune with QLoRA (Colab/local GPU)
-python scripts/train_qlora_qwen.py \
-     --model-id Qwen/Qwen2.5-3B-Instruct \
-     --train-file data/splits/train.jsonl \
-     --val-file data/splits/val.jsonl \
-     --output-dir checkpoints/qwen_lora
-
-# 8  (Optional) Run Streamlit interface
+# 3. Launch the web interface
 streamlit run streamlit_app.py
+# → Opens at http://localhost:8501
 ```
 
-## Prerequisites
+> ⚠️ First launch downloads `Qwen/Qwen3.5-4B` (~8 GB). CPU inference ~30-60s/answer. GPU inference ~2-5s/answer.
 
-- Python 3.10+
-- [Ollama](https://ollama.com/) with the `qwen3.5:4b` model pulled
+---
 
-## Upload JSON Format (for `streamlit_app.py`)
+## Features
 
-The upload tab accepts a JSON array with objects containing at least `question` and `answer`:
+| Feature | Description |
+|---------|-------------|
+| 🤖 Fine-tuned LLM | Qwen 3.5-4B + LoRA adapter trained on NUST Bank data |
+| 🔍 RAG Pipeline | Milvus Lite vector store + `all-MiniLM-L6-v2` embeddings |
+| 🛡️ Guardrails | Prompt injection, harmful content, confidence-based filtering |
+| 📄 Real-time Updates | Upload JSON or add Q&A entries — indexed instantly (no restart) |
+| 💻 GPU + CPU | Auto-detects hardware; 4-bit quantised on GPU, bfloat16 on CPU |
+| 🌐 Web UI | Chat interface + document upload + manual entry form |
+
+---
+
+## Upload Format
+
+The **Upload Data** tab accepts a JSON array:
 
 ```json
 [
-     {
-          "question": "How can I open a savings account?",
-          "answer": "You can open an account by visiting any NUST Bank branch with your CNIC.",
-          "product": "Savings Account"
-     }
+  {
+    "question": "How do I open a savings account?",
+    "answer": "Visit any NUST Bank branch with your CNIC.",
+    "product": "Savings Account"
+  }
 ]
 ```
+
+---
+
+## Project Files
+
+| File | Purpose |
+|------|---------|
+| `llm.py` | RAG inference engine (Qwen 3.5 + LoRA, GPU/CPU auto-detect) |
+| `embedder.py` | Build FAISS index from Q&A pairs |
+| `embedder_2.py` | Build Milvus Lite vector store |
+| `guardrails.py` | Safety layer (pre + post generation) |
+| `search.py` | CLI similarity search tool (no LLM) |
+| `streamlit_app.py` | Web interface |
+| `qwen3.5_banking_lora/` | Fine-tuned LoRA adapter weights |
+| `data/` | Knowledge base files and data scripts |
+| `scripts/` | Fine-tuning and validation scripts |
+| `DOCUMENTATION.md` | Full architecture & component docs |
+| `SETUP_GUIDE.md` | Step-by-step local + Colab setup |
