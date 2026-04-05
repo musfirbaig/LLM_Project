@@ -22,3 +22,13 @@ ollama==0.6.1
 
 # Data extraction (needed only for format_for_finetuning.py)
 openpyxl
+
+# Fine-tuning stack (QLoRA)
+transformers>=4.45.0
+datasets>=2.20.0
+peft>=0.12.0
+accelerate>=0.34.0
+bitsandbytes>=0.43.1
+
+# Interface
+streamlit>=1.39.0
