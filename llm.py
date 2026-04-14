@@ -23,8 +23,13 @@ from urllib import error, request
 import faiss
 import numpy as np
 from sentence_transformers import SentenceTransformer
+from transformers.utils import logging as hf_logging
 
 from guardrails import inspect_query, post_filter, retrieval_confidence_from_distance
+
+# Keep terminal output clean when Streamlit inspects installed transformer modules.
+os.environ.setdefault("TRANSFORMERS_NO_ADVISORY_WARNINGS", "1")
+hf_logging.set_verbosity_error()
 
 # ── Configuration ───────────────────────────────────────────────────────
 EMBEDDING_MODEL   = "all-MiniLM-L6-v2"

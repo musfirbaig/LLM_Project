@@ -13,6 +13,7 @@ import os
 import re
 import sys
 import time
+import traceback
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from typing import Any
@@ -190,16 +191,29 @@ class RequestHandler(BaseHTTPRequestHandler):
             if _auth_enabled() and not _check_auth(self.headers):
                 self._send_json(401, {"error": "unauthorized"})
                 return
-            model, _ = _load_model()
-            self._send_json(
-                200,
-                {
-                    "status": "ok",
-                    "device_info": _DEVICE_INFO,
-                    "model_loaded": model is not None,
-                    "base_model": BASE_MODEL_ID,
-                },
-            )
+            try:
+                model, _ = _load_model()
+                self._send_json(
+                    200,
+                    {
+                        "status": "ok",
+                        "device_info": _DEVICE_INFO,
+                        "model_loaded": model is not None,
+                        "base_model": BASE_MODEL_ID,
+                    },
+                )
+            except Exception as exc:  # noqa: BLE001
+                tb = traceback.format_exc(limit=20)
+                print("[remote] /health failed")
+                print(tb)
+                self._send_json(
+                    500,
+                    {
+                        "error": str(exc) or "Unhandled server error",
+                        "error_type": type(exc).__name__,
+                        "traceback": tb,
+                    },
+                )
             return
 
         self._send_json(404, {"error": "not_found"})
@@ -236,7 +250,17 @@ class RequestHandler(BaseHTTPRequestHandler):
                 },
             )
         except Exception as exc:  # noqa: BLE001
-            self._send_json(500, {"error": str(exc)})
+            tb = traceback.format_exc(limit=20)
+            print("[remote] /ask failed")
+            print(tb)
+            self._send_json(
+                500,
+                {
+                    "error": str(exc) or "Unhandled server error",
+                    "error_type": type(exc).__name__,
+                    "traceback": tb,
+                },
+            )
 
     def log_message(self, format: str, *args: Any) -> None:  # noqa: A003
         print(f"[remote] {self.address_string()} - {format % args}")
