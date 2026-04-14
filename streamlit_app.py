@@ -20,7 +20,7 @@ from typing import Any
 
 import streamlit as st
 
-from llm import ask, load_model, get_device_info
+from llm import ask, load_model, get_device_info, set_remote_url
 
 PROJECT_ROOT = Path(__file__).resolve().parent
 ALL_QA_PATH  = PROJECT_ROOT / "data" / "all_qa_pairs.json"
@@ -90,10 +90,25 @@ def _rebuild_indexes() -> tuple[bool, str]:
 
 # ── Cached model warm-up ────────────────────────────────────────────────
 
-@st.cache_resource(show_spinner="🔄 Loading fine-tuned model (first time may take 1-2 min) …")
-def _warm_model():
-    """Pre-load model + tokenizer on first Streamlit run."""
-    return load_model()
+@st.cache_resource(show_spinner=False)
+def _warm_model_cached():
+    """Pre-load model + tokenizer on first Streamlit run (remote = no-op)."""
+    try:
+        return load_model()
+    except RuntimeError:
+        # Remote URL not configured yet — that's fine, user will paste it in sidebar
+        return None, None
+
+
+def _try_connect(url: str) -> tuple[bool, str]:
+    """Attempt a /health check against the given URL and return (ok, message)."""
+    import llm as _llm
+    _llm.set_remote_url(url)
+    try:
+        info = _llm._refresh_remote_device_info()
+        return True, info
+    except Exception as exc:
+        return False, str(exc)
 
 
 # ── Sidebar ──────────────────────────────────────────────────────────────
@@ -103,10 +118,66 @@ def _render_sidebar() -> None:
         st.markdown("## 🏦 NUST Bank Assistant")
         st.markdown("---")
 
-        # ── Model info ──
+        # ── Remote LLM URL ──────────────────────────────────────────────
+        st.markdown("### 🌐 Remote Model (Colab + ngrok)")
+
+        import llm as _llm
+
+        # Show any URL that's already active (from env var or previous input)
+        current_url = _llm._remote_base_url()
+
+        new_url = st.text_input(
+            "ngrok URL",
+            value=current_url,
+            placeholder="https://xxxx.ngrok-free.app",
+            help="Paste the ngrok public URL printed by cell 8 of the Colab notebook.",
+            key="ngrok_url_input",
+        )
+
+        col_connect, col_clear = st.columns(2)
+        connect_clicked = col_connect.button("🔗 Connect", use_container_width=True, key="btn_connect")
+        clear_clicked   = col_clear.button("✖ Clear",   use_container_width=True, key="btn_clear")
+
+        if clear_clicked:
+            set_remote_url("")
+            st.session_state["ngrok_url_input"] = ""
+            st.session_state["remote_status"] = ("unconfigured", "")
+            st.rerun()
+
+        if connect_clicked and new_url.strip():
+            with st.spinner("Checking connection …"):
+                ok, info = _try_connect(new_url.strip())
+            if ok:
+                st.session_state["remote_status"] = ("ok", info)
+                st.success(f"✅ Connected!  {info}")
+            else:
+                st.session_state["remote_status"] = ("error", info)
+                st.error(f"❌ Could not connect:\n{info}")
+        elif new_url.strip() and new_url.strip() != current_url:
+            # User edited the field but hasn't clicked Connect yet
+            set_remote_url(new_url.strip())
+
+        # Connection status badge
+        status_state = st.session_state.get("remote_status", None)
+        active_url = _llm._remote_base_url()
+        if not active_url:
+            st.warning("⚠️ No URL configured — paste your ngrok URL above.")
+        elif status_state and status_state[0] == "ok":
+            st.success(f"🟢 Connected · {status_state[1]}")
+        elif status_state and status_state[0] == "error":
+            st.error("🔴 Connection failed — check the URL and try again.")
+        else:
+            st.info(f"🔵 URL set: `{active_url}`  (click Connect to verify)")
+
+        # ── Model info ──────────────────────────────────────────────────
+        st.markdown("---")
         st.markdown("### ⚙️ Model")
         st.markdown("**Qwen 3.5-4B + Banking LoRA**")
-        st.info(f"**Device:** {get_device_info()}")
+        try:
+            device_str = get_device_info() if active_url else "Not connected"
+        except Exception:
+            device_str = "Not connected"
+        st.info(f"**Device:** {device_str}")
 
         # ── Knowledge base stats ──
         st.markdown("---")
@@ -126,8 +197,9 @@ def _render_sidebar() -> None:
         st.markdown("---")
         st.markdown("### 💡 Tips")
         st.caption(
+            "• Paste the ngrok URL from Colab cell 8, then click **Connect**.\n"
             "• Ask about any NUST Bank product.\n"
-            "• Upload new Q&A JSON or add entries manually — they're indexed instantly.\n"
+            "• Upload new Q&A JSON or add entries manually — indexed instantly.\n"
             "• Guard-rails block harmful / off-topic queries automatically."
         )
 
@@ -164,8 +236,23 @@ def _render_query_tab() -> None:
 
         # Generate answer
         with st.chat_message("assistant"):
+            import llm as _llm
+            if not _llm._remote_base_url():
+                st.warning(
+                    "⚠️ No remote model URL configured.  "
+                    "Please paste your Colab ngrok URL in the **sidebar** and click **Connect**."
+                )
+                # Don't append an assistant message — let the user fix the config then re-ask
+                st.session_state.messages.pop()  # remove the user message we just added
+                return
+
             with st.spinner("Retrieving context & generating answer …"):
-                result = ask(query)
+                try:
+                    result = ask(query)
+                except Exception as exc:
+                    st.error(f"❌ Error reaching remote model: {exc}")
+                    st.session_state.messages.pop()
+                    return
 
             answer = result.get("answer", "No answer returned.")
             st.markdown(answer)
@@ -316,8 +403,8 @@ def main() -> None:
         "Upload or add documents for instant knowledge updates"
     )
 
-    # Pre-load the model (cached after first call)
-    _warm_model()
+    # Pre-load (in remote-only mode this is basically a no-op — just validates the URL)
+    _warm_model_cached()
 
     # Sidebar
     _render_sidebar()

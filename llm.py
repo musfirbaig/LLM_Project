@@ -14,16 +14,12 @@ from __future__ import annotations
 import json
 import os
 import re
-import time
 from pathlib import Path
 from typing import Any
 from urllib import error, request
 
-import torch
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_milvus import Milvus
-from peft import PeftModel
-from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from guardrails import inspect_query, post_filter, retrieval_confidence_from_distance
 
@@ -54,13 +50,33 @@ SYSTEM_PROMPT = (
 )
 
 # ── Singleton model cache ───────────────────────────────────────────────
-_model: PeftModel | None = None
-_tokenizer: AutoTokenizer | None = None
 _device_info: str = ""
+_runtime_banner_printed: bool = False
 
 
 def _remote_base_url() -> str:
-    return os.environ.get("NUST_BANK_REMOTE_LLM_URL", "").strip().rstrip("/")
+    """Return the remote LLM base URL.
+
+    Priority:
+      1. NUST_BANK_REMOTE_LLM_URL environment variable
+      2. URL stored in the module-level variable set by the Streamlit UI
+    """
+    env_url = os.environ.get("NUST_BANK_REMOTE_LLM_URL", "").strip().rstrip("/")
+    return env_url or _ui_remote_url.strip().rstrip("/")
+
+
+# Writable by the Streamlit sidebar so users can paste the ngrok URL in the UI
+# without restarting the process or setting env vars.
+_ui_remote_url: str = ""
+
+
+def set_remote_url(url: str) -> None:
+    """Called by the Streamlit sidebar when the user types/pastes a new ngrok URL."""
+    global _ui_remote_url, _device_info, _runtime_banner_printed
+    _ui_remote_url = url.strip().rstrip("/")
+    # Reset cached info so the next call re-fetches from the new endpoint
+    _device_info = ""
+    _runtime_banner_printed = False
 
 
 def _remote_enabled() -> bool:
@@ -82,7 +98,7 @@ def _remote_request(path: str, payload: dict[str, Any] | None = None) -> dict[st
 
     url = f"{base_url}{path}"
     headers = {"Content-Type": "application/json"}
-    token = os.environ.get("NUST_BANK_REMOTE_LLM_TOKEN", "change_me_shared_secret").strip()
+    token = os.environ.get("NUST_BANK_REMOTE_LLM_TOKEN", "").strip()
     if token:
         headers["Authorization"] = f"Bearer {token}"
 
@@ -115,71 +131,32 @@ def _refresh_remote_device_info() -> str:
     return f"{device} @ {base_url}"
 
 
-def _detect_runtime() -> tuple[str, torch.dtype, dict | None]:
-    """Return (device_map, dtype, quantization_config) for the current hardware."""
-    if torch.cuda.is_available():
-        try:
-            from transformers import BitsAndBytesConfig
-
-            quant_cfg = BitsAndBytesConfig(
-                load_in_4bit=True,
-                bnb_4bit_quant_type="nf4",
-                bnb_4bit_compute_dtype=torch.float16,
-            )
-            return "auto", torch.float16, quant_cfg
-        except ImportError:
-            return "auto", torch.float16, None
-    # CPU path — bfloat16 is ~2× smaller than float32 and well supported
-    return "cpu", torch.bfloat16, None
+def _print_runtime_banner(mode: str) -> None:
+    global _runtime_banner_printed
+    if _runtime_banner_printed:
+        return
+    _runtime_banner_printed = True
+    print(f"[llm] Runtime mode: {mode}")
 
 
 def load_model() -> tuple[Any, Any]:
-    """Load (or return cached) model + tokenizer.
+    """Validate remote mode and fetch remote device status.
 
-    First call downloads the base model (~8 GB) and merges the LoRA
-    adapter.  Subsequent calls return the cached objects instantly.
+    Local generation is intentionally disabled in this build.
     """
-    global _model, _tokenizer, _device_info
+    global _device_info
 
-    if _remote_enabled():
-        if not _device_info:
-            _device_info = _refresh_remote_device_info()
-        return None, None
+    if not _remote_enabled():
+        _print_runtime_banner("LOCAL_DISABLED")
+        raise RuntimeError(
+            "Local model mode is disabled. Set NUST_BANK_REMOTE_LLM_URL "
+            "to your Colab/ngrok endpoint and restart Streamlit."
+        )
 
-    if _model is not None:
-        return _model, _tokenizer
-
-    device_map, dtype, quant_cfg = _detect_runtime()
-
-    if torch.cuda.is_available():
-        _device_info = f"GPU ({torch.cuda.get_device_name(0)}) · 4-bit quantised"
-    else:
-        _device_info = "CPU · bfloat16"
-
-    t0 = time.time()
-    print(f"[llm] Loading base model  {BASE_MODEL_ID}  ({_device_info}) …")
-
-    base = AutoModelForCausalLM.from_pretrained(
-        BASE_MODEL_ID,
-        torch_dtype=dtype,
-        device_map=device_map,
-        quantization_config=quant_cfg,
-        trust_remote_code=True,
-    )
-
-    print(f"[llm] Merging LoRA adapter from  {ADAPTER_PATH}  …")
-    _model = PeftModel.from_pretrained(base, ADAPTER_PATH)
-    _model.eval()
-
-    _tokenizer = AutoTokenizer.from_pretrained(
-        ADAPTER_PATH, trust_remote_code=True,
-    )
-    if _tokenizer.pad_token is None:
-        _tokenizer.pad_token = _tokenizer.eos_token
-
-    elapsed = time.time() - t0
-    print(f"[llm] Model ready in {elapsed:.1f}s")
-    return _model, _tokenizer
+    _print_runtime_banner("REMOTE_ONLY")
+    if not _device_info:
+        _device_info = _refresh_remote_device_info()
+    return None, None
 
 
 def get_device_info() -> str:
@@ -203,66 +180,33 @@ def _get_knowledge_base() -> Milvus:
 # ── Generation ──────────────────────────────────────────────────────────
 
 def _generate(question: str, contexts: list[str]) -> str:
-    """Build a chat prompt, run model.generate(), and decode."""
+    """Generate an answer through the remote inference API."""
     global _device_info
 
-    if _remote_enabled():
-        payload = {
-            "question": question,
-            "contexts": contexts,
-            "system_prompt": SYSTEM_PROMPT,
-            "generation": {
-                "max_new_tokens": MAX_NEW_TOKENS,
-                "temperature": TEMPERATURE,
-                "top_p": TOP_P,
-                "repetition_penalty": REPETITION_PENALTY,
-            },
-        }
-        data = _remote_request("/ask", payload)
-        answer = str(data.get("answer", "")).strip()
-        if data.get("device_info"):
-            _device_info = f"{data['device_info']} @ {_remote_base_url()}"
-        return answer or "I could not generate a reliable answer right now. Please try again."
-
-    model, tokenizer = load_model()
-
-    context_block = "\n\n".join(contexts)
-    user_content = (
-        f"Context:\n{context_block}\n\n"
-        f"Customer question: {question}"
-    )
-
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user",   "content": user_content},
-    ]
-
-    input_ids = tokenizer.apply_chat_template(
-        messages,
-        add_generation_prompt=True,
-        return_tensors="pt",
-    )
-    device = next(model.parameters()).device
-    input_ids = input_ids.to(device)
-
-    with torch.no_grad():
-        output_ids = model.generate(
-            input_ids,
-            max_new_tokens=MAX_NEW_TOKENS,
-            temperature=TEMPERATURE,
-            do_sample=True,
-            top_p=TOP_P,
-            repetition_penalty=REPETITION_PENALTY,
-            pad_token_id=tokenizer.pad_token_id,
+    if not _remote_enabled():
+        raise RuntimeError(
+            "Remote endpoint missing. Set NUST_BANK_REMOTE_LLM_URL before asking questions."
         )
 
-    # Decode only the newly generated tokens
-    new_tokens = output_ids[0][input_ids.shape[-1]:]
-    answer = tokenizer.decode(new_tokens, skip_special_tokens=True)
+    payload = {
+        "question": question,
+        "contexts": contexts,
+        "system_prompt": SYSTEM_PROMPT,
+        "generation": {
+            "max_new_tokens": MAX_NEW_TOKENS,
+            "temperature": TEMPERATURE,
+            "top_p": TOP_P,
+            "repetition_penalty": REPETITION_PENALTY,
+        },
+    }
+    data = _remote_request("/ask", payload)
+    answer = str(data.get("answer", "")).strip()
+    if data.get("device_info"):
+        _device_info = f"{data['device_info']} @ {_remote_base_url()}"
 
     # Strip any <think>…</think> reasoning blocks the model may emit
     answer = re.sub(r"<think>.*?</think>", "", answer, flags=re.DOTALL).strip()
-    return answer
+    return answer or "I could not generate a reliable answer right now. Please try again."
 
 
 # ── Public API (unchanged signature) ────────────────────────────────────
