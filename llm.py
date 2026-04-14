@@ -120,8 +120,24 @@ def _remote_request(path: str, payload: dict[str, Any] | None = None) -> dict[st
         with request.urlopen(req, timeout=_remote_timeout()) as resp:
             raw = resp.read().decode("utf-8")
     except error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")
-        raise RuntimeError(f"Remote LLM request failed ({exc.code}): {detail}") from exc
+        detail_raw = exc.read().decode("utf-8", errors="replace")
+        # Try to extract a richer error message from the JSON body
+        try:
+            detail_json = json.loads(detail_raw)
+            err_msg = detail_json.get("error") or detail_raw
+            err_type = detail_json.get("error_type", "")
+            tb = detail_json.get("traceback", "")
+            # Build a descriptive message the user can actually act on
+            rich_msg = f"Remote LLM request failed (HTTP {exc.code})"
+            if err_type:
+                rich_msg += f" — {err_type}: {err_msg}"
+            else:
+                rich_msg += f": {err_msg}"
+            if tb:
+                rich_msg += f"\n\nServer traceback:\n{tb}"
+        except Exception:
+            rich_msg = f"Remote LLM request failed ({exc.code}): {detail_raw}"
+        raise RuntimeError(rich_msg) from exc
     except error.URLError as exc:
         raise RuntimeError(f"Could not reach remote LLM API at {base_url}: {exc.reason}") from exc
 

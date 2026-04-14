@@ -103,9 +103,27 @@ def _load_model() -> tuple[PeftModel, AutoTokenizer]:
     print(f"[remote] Adapter applied in {time.time() - t1:.1f}s")
     sys.stdout.flush()
 
-    _TOKENIZER = AutoTokenizer.from_pretrained(ADAPTER_PATH, trust_remote_code=True)
+    # Load tokenizer from the BASE model so the chat_template is always present.
+    # LoRA adapter directories often don't include a full tokenizer config.
+    print(f"[remote] Loading tokenizer from base model: {BASE_MODEL_ID}")
+    sys.stdout.flush()
+    try:
+        _TOKENIZER = AutoTokenizer.from_pretrained(BASE_MODEL_ID, trust_remote_code=True)
+        print("[remote] Tokenizer loaded from base model ✓")
+    except Exception as tok_exc:
+        print(f"[remote] WARNING: could not load tokenizer from base model ({tok_exc}), "
+              f"falling back to adapter path.")
+        _TOKENIZER = AutoTokenizer.from_pretrained(ADAPTER_PATH, trust_remote_code=True)
+    sys.stdout.flush()
+
     if _TOKENIZER.pad_token is None:
         _TOKENIZER.pad_token = _TOKENIZER.eos_token
+
+    # Sanity-check: warn loudly if chat_template is missing.
+    if not getattr(_TOKENIZER, "chat_template", None):
+        print("[remote] WARNING: tokenizer has no chat_template — "
+              "apply_chat_template will raise an error on /ask requests.")
+        sys.stdout.flush()
 
     elapsed = time.time() - t0
     print(f"[remote] ✅ Model fully ready in {elapsed:.1f}s — device: {_DEVICE_INFO}")
@@ -251,12 +269,14 @@ class RequestHandler(BaseHTTPRequestHandler):
             )
         except Exception as exc:  # noqa: BLE001
             tb = traceback.format_exc(limit=20)
-            print("[remote] /ask failed")
+            err_msg = str(exc).strip() or f"Unhandled {type(exc).__name__} (no message)"
+            print(f"[remote] /ask failed: {err_msg}")
             print(tb)
+            sys.stdout.flush()
             self._send_json(
                 500,
                 {
-                    "error": str(exc) or "Unhandled server error",
+                    "error": err_msg,
                     "error_type": type(exc).__name__,
                     "traceback": tb,
                 },
