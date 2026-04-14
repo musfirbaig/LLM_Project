@@ -18,7 +18,7 @@ faiss-cpu==1.13.2
 
 # LLM — native HuggingFace inference (replaces Ollama)
 torch>=2.1.0
-transformers>=4.45.0
+transformers>=5.2.0  # Qwen3.5 (model_type qwen3_5) requires 5.2.0+
 peft>=0.12.0
 accelerate>=0.34.0
 
