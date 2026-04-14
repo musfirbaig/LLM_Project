@@ -11,9 +11,13 @@ augmented QA against the Milvus Lite vector store.
 
 from __future__ import annotations
 
+import json
+import os
 import re
 import time
 from pathlib import Path
+from typing import Any
+from urllib import error, request
 
 import torch
 from langchain_huggingface import HuggingFaceEmbeddings
@@ -55,6 +59,62 @@ _tokenizer: AutoTokenizer | None = None
 _device_info: str = ""
 
 
+def _remote_base_url() -> str:
+    return os.environ.get("NUST_BANK_REMOTE_LLM_URL", "").strip().rstrip("/")
+
+
+def _remote_enabled() -> bool:
+    return bool(_remote_base_url())
+
+
+def _remote_timeout() -> float:
+    raw_timeout = os.environ.get("NUST_BANK_REMOTE_LLM_TIMEOUT", "120").strip()
+    try:
+        return float(raw_timeout)
+    except ValueError:
+        return 120.0
+
+
+def _remote_request(path: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    base_url = _remote_base_url()
+    if not base_url:
+        raise RuntimeError("Remote LLM URL is not configured.")
+
+    url = f"{base_url}{path}"
+    headers = {"Content-Type": "application/json"}
+    token = os.environ.get("NUST_BANK_REMOTE_LLM_TOKEN", "").strip()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    data = None if payload is None else json.dumps(payload).encode("utf-8")
+    req = request.Request(url, data=data, headers=headers, method="POST" if payload is not None else "GET")
+
+    try:
+        with request.urlopen(req, timeout=_remote_timeout()) as resp:
+            raw = resp.read().decode("utf-8")
+    except error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", errors="replace")
+        raise RuntimeError(f"Remote LLM request failed ({exc.code}): {detail}") from exc
+    except error.URLError as exc:
+        raise RuntimeError(f"Could not reach remote LLM API at {base_url}: {exc.reason}") from exc
+
+    return json.loads(raw)
+
+
+def _refresh_remote_device_info() -> str:
+    base_url = _remote_base_url()
+    if not base_url:
+        return ""
+
+    try:
+        data = _remote_request("/health")
+    except Exception:
+        return f"Remote LLM API at {base_url}"
+
+    device = data.get("device_info") or data.get("status") or "Remote LLM API"
+    return f"{device} @ {base_url}"
+
+
 def _detect_runtime() -> tuple[str, torch.dtype, dict | None]:
     """Return (device_map, dtype, quantization_config) for the current hardware."""
     if torch.cuda.is_available():
@@ -73,13 +133,18 @@ def _detect_runtime() -> tuple[str, torch.dtype, dict | None]:
     return "cpu", torch.bfloat16, None
 
 
-def load_model() -> tuple:
+def load_model() -> tuple[Any, Any]:
     """Load (or return cached) model + tokenizer.
 
     First call downloads the base model (~8 GB) and merges the LoRA
     adapter.  Subsequent calls return the cached objects instantly.
     """
     global _model, _tokenizer, _device_info
+
+    if _remote_enabled():
+        if not _device_info:
+            _device_info = _refresh_remote_device_info()
+        return None, None
 
     if _model is not None:
         return _model, _tokenizer
@@ -139,6 +204,26 @@ def _get_knowledge_base() -> Milvus:
 
 def _generate(question: str, contexts: list[str]) -> str:
     """Build a chat prompt, run model.generate(), and decode."""
+    global _device_info
+
+    if _remote_enabled():
+        payload = {
+            "question": question,
+            "contexts": contexts,
+            "system_prompt": SYSTEM_PROMPT,
+            "generation": {
+                "max_new_tokens": MAX_NEW_TOKENS,
+                "temperature": TEMPERATURE,
+                "top_p": TOP_P,
+                "repetition_penalty": REPETITION_PENALTY,
+            },
+        }
+        data = _remote_request("/ask", payload)
+        answer = str(data.get("answer", "")).strip()
+        if data.get("device_info"):
+            _device_info = f"{data['device_info']} @ {_remote_base_url()}"
+        return answer or "I could not generate a reliable answer right now. Please try again."
+
     model, tokenizer = load_model()
 
     context_block = "\n\n".join(contexts)

@@ -5,6 +5,8 @@
 
 An AI-powered customer support assistant that answers questions about NUST Bank products using **Retrieval-Augmented Generation (RAG)** with a **fine-tuned Qwen 3.5-4B** language model.
 
+If you do not have a local GPU, you can run the model on Google Colab and expose it through ngrok. The local app keeps retrieval and guardrails, then calls the remote model over HTTP.
+
 📖 **[Full Documentation → DOCUMENTATION.md](./DOCUMENTATION.md)**  
 🚀 **[Setup Guide → SETUP_GUIDE.md](./SETUP_GUIDE.md)**
 
@@ -68,6 +70,7 @@ streamlit run streamlit_app.py
 | 🛡️ Guardrails | Prompt injection, harmful content, confidence-based filtering |
 | 📄 Real-time Updates | Upload JSON or add Q&A entries — indexed instantly (no restart) |
 | 💻 GPU + CPU | Auto-detects hardware; 4-bit quantised on GPU, bfloat16 on CPU |
+| 🌐 Remote GPU | Optional Colab-hosted HTTP inference via ngrok |
 | 🌐 Web UI | Chat interface + document upload + manual entry form |
 
 ---
@@ -93,6 +96,7 @@ The **Upload Data** tab accepts a JSON array:
 | File | Purpose |
 |------|---------|
 | `llm.py` | RAG inference engine (Qwen 3.5 + LoRA, GPU/CPU auto-detect) |
+| `remote_llm_server.py` | Colab/GPU HTTP inference server for ngrok exposure |
 | `embedder.py` | Build FAISS index from Q&A pairs |
 | `embedder_2.py` | Build Milvus Lite vector store |
 | `guardrails.py` | Safety layer (pre + post generation) |

@@ -169,10 +169,13 @@ The app opens at **http://localhost:8501**. On first launch, the model loads
 
 ---
 
-## Google Colab Setup (GPU)
+## Google Colab Setup (GPU + ngrok API)
 
 > **Recommended:** Use a Colab runtime with **GPU** (T4 or better) for fast inference
 > (~2-5 seconds per answer with 4-bit quantisation).
+
+This mode runs the model on Colab, exposes it through ngrok, and lets your local
+pipeline call the remote API through `NUST_BANK_REMOTE_LLM_URL`.
 
 ### Step 1 — Open a New Colab Notebook
 
@@ -232,7 +235,10 @@ drive.mount('/content/drive')
 pip install -q -r requirements.txt
 
 # Also install bitsandbytes for GPU 4-bit quantisation
-pip install -q bitsandbytes>=0.43.1
+pip install -q "bitsandbytes>=0.43.1"
+
+# Install ngrok helper for the public tunnel
+pip install -q pyngrok
 ```
 
 ### Step 4 — Build Knowledge Base (if not uploaded)
@@ -247,7 +253,49 @@ os.makedirs('data', exist_ok=True)
 !python embedder_2.py
 ```
 
-### Step 5 — Test Inference
+### Step 5 — Start the Remote API Server
+
+Run the HTTP server in one Colab cell:
+
+```python
+import subprocess
+import sys
+
+process = subprocess.Popen(
+  [sys.executable, "remote_llm_server.py", "--host", "0.0.0.0", "--port", "8000"],
+  stdout=subprocess.PIPE,
+  stderr=subprocess.STDOUT,
+  text=True,
+)
+print("Remote server started on port 8000")
+```
+
+### Step 6 — Expose the Server with ngrok
+
+```python
+from pyngrok import ngrok
+
+public_url = ngrok.connect(8000).public_url
+print(public_url)
+```
+
+Keep this URL; it becomes your local pipeline endpoint.
+
+### Step 7 — Configure the Local App
+
+Set this environment variable on your local machine before starting Streamlit or your pipeline:
+
+```bash
+set NUST_BANK_REMOTE_LLM_URL=https://xxxx.ngrok-free.app
+```
+
+Optional security token, if you set `NUST_BANK_REMOTE_LLM_TOKEN` on Colab:
+
+```bash
+set NUST_BANK_REMOTE_LLM_TOKEN=your_shared_secret
+```
+
+### Step 8 — Test Inference
 
 ```python
 from llm import ask
@@ -257,6 +305,9 @@ print("Answer:", result["answer"])
 print("Confidence:", result.get("confidence"))
 print("Sources:", result.get("sources"))
 ```
+
+If the environment variable is set correctly, `llm.py` will retrieve context locally,
+send the prompt to Colab, and return the generated answer without loading the model on your laptop.
 
 Expected output (with GPU):
 ```
