@@ -73,17 +73,13 @@ def _normalize_new_records(payload: Any) -> list[dict[str, str]]:
 
 
 def _rebuild_indexes() -> tuple[bool, str]:
-    """Re-run both embedding pipelines so new data becomes searchable."""
+    """Re-run the FAISS embedding pipeline so new data becomes searchable."""
     try:
         subprocess.run(
             [sys.executable, "embedder.py"],
             cwd=str(PROJECT_ROOT), check=True, capture_output=True,
         )
-        subprocess.run(
-            [sys.executable, "embedder_2.py"],
-            cwd=str(PROJECT_ROOT), check=True, capture_output=True,
-        )
-        return True, "Index rebuild complete — new data is now available for queries."
+        return True, "FAISS index rebuild complete — new data is now available for queries."
     except subprocess.CalledProcessError as exc:
         return False, f"Rebuild failed: {exc}"
 

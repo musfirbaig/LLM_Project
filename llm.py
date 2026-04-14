@@ -1,12 +1,14 @@
 """
-RAG Inference Engine — Fine-tuned Qwen 3.5 (PEFT / LoRA)
----------------------------------------------------------
-Loads the base Qwen 3.5-4B model from HuggingFace, merges the locally
-fine-tuned LoRA adapter (qwen3.5_banking_lora/), and runs retrieval-
-augmented QA against the Milvus Lite vector store.
+RAG Inference Engine — FAISS retrieval + Remote Qwen 3.5 Generation
+--------------------------------------------------------------------
+Retrieval:   FAISS flat-L2 index (data/faiss_index.bin) +
+             chunk metadata  (data/chunk_metadata.json)
+             → same pipeline as the working Colab notebook
+Generation:  Remote Qwen 3.5 server running on Colab/ngrok
+             → POST /ask with question + retrieved contexts
 
-• GPU detected  → float16 + 4-bit quantisation (bitsandbytes)
-• CPU only      → bfloat16 (half the RAM of float32, works on modern CPUs)
+• GPU/CPU on the local machine is NOT used (model lives on Colab)
+• Only sentence-transformers (all-MiniLM-L6-v2) runs locally for embeddings
 """
 
 from __future__ import annotations
@@ -18,27 +20,26 @@ from pathlib import Path
 from typing import Any
 from urllib import error, request
 
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_milvus import Milvus
+import faiss
+import numpy as np
+from sentence_transformers import SentenceTransformer
 
 from guardrails import inspect_query, post_filter, retrieval_confidence_from_distance
 
 # ── Configuration ───────────────────────────────────────────────────────
-BASE_MODEL_ID    = "Qwen/Qwen3.5-4B"
-ADAPTER_PATH     = str(Path(__file__).resolve().parent / "qwen3.5_banking_lora")
-EMBEDDING_MODEL  = "all-MiniLM-L6-v2"
-MILVUS_DB_PATH   = "data/milvus_bank.db"
-COLLECTION_NAME  = "bank_knowledge"
-TOP_K_RESULTS    = 3
+EMBEDDING_MODEL   = "all-MiniLM-L6-v2"
+FAISS_INDEX_PATH  = Path(__file__).resolve().parent / "data" / "faiss_index.bin"
+METADATA_PATH     = Path(__file__).resolve().parent / "data" / "chunk_metadata.json"
+TOP_K_RESULTS     = 3
 MIN_RETRIEVAL_CONFIDENCE = 0.35
 
-# Generation hyper-parameters
-MAX_NEW_TOKENS      = 512
-TEMPERATURE          = 0.7
-TOP_P                = 0.9
-REPETITION_PENALTY   = 1.1
+# Generation hyper-parameters (sent to the remote server)
+MAX_NEW_TOKENS    = 512
+TEMPERATURE       = 0.7
+TOP_P             = 0.9
+REPETITION_PENALTY = 1.1
 
-# System prompt (injected as the "system" role in the Qwen chat template)
+# System prompt
 SYSTEM_PROMPT = (
     "You are a caring and professional customer support assistant for NUST Bank. "
     "Follow these rules strictly:\n"
@@ -49,10 +50,19 @@ SYSTEM_PROMPT = (
     "5) Do not use <think> tags or show your internal reasoning."
 )
 
-# ── Singleton model cache ───────────────────────────────────────────────
+# ── Singleton caches ───────────────────────────────────────────────────
 _device_info: str = ""
 _runtime_banner_printed: bool = False
+_encoder: SentenceTransformer | None = None
+_faiss_index: faiss.Index | None = None
+_chunk_metadata: list[dict] | None = None
 
+# Writable by the Streamlit sidebar so users can paste the ngrok URL in the UI
+# without restarting the process or setting env vars.
+_ui_remote_url: str = ""
+
+
+# ── Remote URL helpers ──────────────────────────────────────────────────
 
 def _remote_base_url() -> str:
     """Return the remote LLM base URL.
@@ -63,11 +73,6 @@ def _remote_base_url() -> str:
     """
     env_url = os.environ.get("NUST_BANK_REMOTE_LLM_URL", "").strip().rstrip("/")
     return env_url or _ui_remote_url.strip().rstrip("/")
-
-
-# Writable by the Streamlit sidebar so users can paste the ngrok URL in the UI
-# without restarting the process or setting env vars.
-_ui_remote_url: str = ""
 
 
 def set_remote_url(url: str) -> None:
@@ -84,9 +89,9 @@ def _remote_enabled() -> bool:
 
 
 def _remote_timeout() -> float:
-    raw_timeout = os.environ.get("NUST_BANK_REMOTE_LLM_TIMEOUT", "120").strip()
+    raw = os.environ.get("NUST_BANK_REMOTE_LLM_TIMEOUT", "120").strip()
     try:
-        return float(raw_timeout)
+        return float(raw)
     except ValueError:
         return 120.0
 
@@ -103,7 +108,8 @@ def _remote_request(path: str, payload: dict[str, Any] | None = None) -> dict[st
         headers["Authorization"] = f"Bearer {token}"
 
     data = None if payload is None else json.dumps(payload).encode("utf-8")
-    req = request.Request(url, data=data, headers=headers, method="POST" if payload is not None else "GET")
+    req = request.Request(url, data=data, headers=headers,
+                          method="POST" if payload is not None else "GET")
 
     try:
         with request.urlopen(req, timeout=_remote_timeout()) as resp:
@@ -121,15 +127,70 @@ def _refresh_remote_device_info() -> str:
     base_url = _remote_base_url()
     if not base_url:
         return ""
-
     try:
         data = _remote_request("/health")
     except Exception:
         return f"Remote LLM API at {base_url}"
-
     device = data.get("device_info") or data.get("status") or "Remote LLM API"
     return f"{device} @ {base_url}"
 
+
+# ── FAISS + Embedding helpers ────────────────────────────────────────────
+
+def _get_encoder() -> SentenceTransformer:
+    global _encoder
+    if _encoder is None:
+        print(f"[llm] Loading embedding model '{EMBEDDING_MODEL}' ...")
+        _encoder = SentenceTransformer(EMBEDDING_MODEL)
+    return _encoder
+
+
+def _get_faiss_index() -> faiss.Index:
+    global _faiss_index
+    if _faiss_index is None:
+        if not FAISS_INDEX_PATH.exists():
+            raise FileNotFoundError(
+                f"FAISS index not found at {FAISS_INDEX_PATH}. "
+                "Run embedder.py first to build the index."
+            )
+        print(f"[llm] Loading FAISS index from {FAISS_INDEX_PATH} ...")
+        _faiss_index = faiss.read_index(str(FAISS_INDEX_PATH))
+    return _faiss_index
+
+
+def _get_metadata() -> list[dict]:
+    global _chunk_metadata
+    if _chunk_metadata is None:
+        if not METADATA_PATH.exists():
+            raise FileNotFoundError(
+                f"Chunk metadata not found at {METADATA_PATH}. "
+                "Run embedder.py first to build the index."
+            )
+        with METADATA_PATH.open("r", encoding="utf-8") as fh:
+            _chunk_metadata = json.load(fh)
+    return _chunk_metadata
+
+
+def _faiss_search(query: str, k: int = TOP_K_RESULTS) -> list[dict]:
+    """Return top-k chunks from FAISS with their L2 distances."""
+    encoder  = _get_encoder()
+    index    = _get_faiss_index()
+    metadata = _get_metadata()
+
+    q_vec = encoder.encode([query], convert_to_numpy=True).astype("float32")
+    distances, indices = index.search(q_vec, k)
+
+    results = []
+    for dist, idx in zip(distances[0], indices[0]):
+        if idx < 0 or idx >= len(metadata):
+            continue
+        chunk = metadata[idx].copy()
+        chunk["_distance"] = float(dist)
+        results.append(chunk)
+    return results
+
+
+# ── Public model lifecycle ──────────────────────────────────────────────
 
 def _print_runtime_banner(mode: str) -> None:
     global _runtime_banner_printed
@@ -140,22 +201,32 @@ def _print_runtime_banner(mode: str) -> None:
 
 
 def load_model() -> tuple[Any, Any]:
-    """Validate remote mode and fetch remote device status.
+    """Validate remote mode and warm up FAISS + embedding model.
 
-    Local generation is intentionally disabled in this build.
+    Returns (None, None) — the actual Qwen weights live on Colab.
     """
     global _device_info
 
     if not _remote_enabled():
         _print_runtime_banner("LOCAL_DISABLED")
         raise RuntimeError(
-            "Local model mode is disabled. Set NUST_BANK_REMOTE_LLM_URL "
-            "to your Colab/ngrok endpoint and restart Streamlit."
+            "Remote model URL not configured. "
+            "Paste your Colab ngrok URL in the sidebar and click Connect."
         )
 
     _print_runtime_banner("REMOTE_ONLY")
+
+    # Warm up the local embedding model + FAISS index
+    try:
+        _get_encoder()
+        _get_faiss_index()
+        _get_metadata()
+    except FileNotFoundError as exc:
+        print(f"[llm] WARNING: {exc}")
+
     if not _device_info:
         _device_info = _refresh_remote_device_info()
+
     return None, None
 
 
@@ -164,17 +235,6 @@ def get_device_info() -> str:
     if not _device_info:
         load_model()
     return _device_info
-
-
-# ── Vector store helper ─────────────────────────────────────────────────
-
-def _get_knowledge_base() -> Milvus:
-    embed_fn = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
-    return Milvus(
-        embed_fn,
-        connection_args={"uri": MILVUS_DB_PATH},
-        collection_name=COLLECTION_NAME,
-    )
 
 
 # ── Generation ──────────────────────────────────────────────────────────
@@ -209,10 +269,10 @@ def _generate(question: str, contexts: list[str]) -> str:
     return answer or "I could not generate a reliable answer right now. Please try again."
 
 
-# ── Public API (unchanged signature) ────────────────────────────────────
+# ── Public API ──────────────────────────────────────────────────────────
 
 def ask(question: str) -> dict:
-    """Answer a question using retrieval + guarded generation.
+    """Answer a question using FAISS retrieval + guarded remote generation.
 
     Returns a dict with keys: answer, guardrail_blocked, confidence, sources.
     """
@@ -225,9 +285,15 @@ def ask(question: str) -> dict:
             "sources": [],
         }
 
-    # ── Retrieve ──
-    knowledge_base = _get_knowledge_base()
-    hits = knowledge_base.similarity_search_with_score(question, k=TOP_K_RESULTS)
+    # ── Retrieve via FAISS ──
+    try:
+        hits = _faiss_search(question, k=TOP_K_RESULTS)
+    except FileNotFoundError as exc:
+        return {
+            "answer": f"Knowledge base not available: {exc}",
+            "guardrail_blocked": False,
+            "sources": [],
+        }
 
     if not hits:
         return {
@@ -236,7 +302,8 @@ def ask(question: str) -> dict:
             "sources": [],
         }
 
-    best_distance = min(score for _, score in hits)
+    # ── Confidence from distance (lower L2 = better) ──
+    best_distance = min(h["_distance"] for h in hits)
     confidence = retrieval_confidence_from_distance(best_distance)
     if confidence < MIN_RETRIEVAL_CONFIDENCE:
         return {
@@ -246,8 +313,8 @@ def ask(question: str) -> dict:
             "sources": [],
         }
 
-    # ── Generate ──
-    contexts = [doc.page_content for doc, _ in hits]
+    # ── Generate via remote server ──
+    contexts = [h.get("text", "") for h in hits]
     raw_answer = _generate(question, contexts)
 
     # ── Post-generation guardrail ──
@@ -255,11 +322,11 @@ def ask(question: str) -> dict:
 
     source_payload = [
         {
-            "score": float(score),
-            "product": doc.metadata.get("product", "N/A"),
-            "question": doc.metadata.get("question", ""),
+            "score": h["_distance"],
+            "product": h.get("product", "N/A"),
+            "question": h.get("question", ""),
         }
-        for doc, score in hits
+        for h in hits
     ]
 
     return {
@@ -275,6 +342,6 @@ if __name__ == "__main__":
     sample = "how do i open an account?"
     print(f"\n--- Query: {sample!r} ---\n")
     result = ask(sample)
-    print("Answer :", result["answer"])
+    print("Answer    :", result["answer"])
     print("Confidence:", result.get("confidence"))
-    print("Sources:", result.get("sources"))
+    print("Sources   :", result.get("sources"))
