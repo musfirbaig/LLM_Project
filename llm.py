@@ -82,7 +82,7 @@ def _remote_request(path: str, payload: dict[str, Any] | None = None) -> dict[st
 
     url = f"{base_url}{path}"
     headers = {"Content-Type": "application/json"}
-    token = os.environ.get("NUST_BANK_REMOTE_LLM_TOKEN", "").strip()
+    token = os.environ.get("NUST_BANK_REMOTE_LLM_TOKEN", "change_me_shared_secret").strip()
     if token:
         headers["Authorization"] = f"Bearer {token}"
 

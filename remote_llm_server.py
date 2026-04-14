@@ -11,6 +11,7 @@ import argparse
 import json
 import os
 import re
+import sys
 import time
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -21,6 +22,8 @@ from peft import PeftModel
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 BASE_MODEL_ID = os.environ.get("NUST_BANK_BASE_MODEL", "Qwen/Qwen3.5-4B")
+# In Colab the adapter is typically mounted from Drive or copied next to this script.
+# Override NUST_BANK_ADAPTER_PATH env-var if the weights live elsewhere.
 ADAPTER_PATH = os.environ.get(
     "NUST_BANK_ADAPTER_PATH",
     str(Path(__file__).resolve().parent / "qwen3.5_banking_lora"),
@@ -76,7 +79,11 @@ def _load_model() -> tuple[PeftModel, AutoTokenizer]:
         _DEVICE_INFO = "CPU · bfloat16"
 
     t0 = time.time()
-    print(f"[remote] Loading base model {BASE_MODEL_ID} ({_DEVICE_INFO}) ...")
+    print(f"[remote] Loading base model  : {BASE_MODEL_ID}")
+    print(f"[remote] Device              : {_DEVICE_INFO}")
+    print(f"[remote] Adapter path        : {ADAPTER_PATH}")
+    sys.stdout.flush()
+
     base = AutoModelForCausalLM.from_pretrained(
         BASE_MODEL_ID,
         torch_dtype=dtype,
@@ -84,17 +91,31 @@ def _load_model() -> tuple[PeftModel, AutoTokenizer]:
         quantization_config=quant_cfg,
         trust_remote_code=True,
     )
+    print(f"[remote] Base model loaded in {time.time() - t0:.1f}s")
+    sys.stdout.flush()
 
-    print(f"[remote] Loading LoRA adapter from {ADAPTER_PATH} ...")
+    t1 = time.time()
+    print(f"[remote] Applying LoRA adapter from {ADAPTER_PATH} ...")
+    sys.stdout.flush()
     _MODEL = PeftModel.from_pretrained(base, ADAPTER_PATH)
     _MODEL.eval()
+    print(f"[remote] Adapter applied in {time.time() - t1:.1f}s")
+    sys.stdout.flush()
 
     _TOKENIZER = AutoTokenizer.from_pretrained(ADAPTER_PATH, trust_remote_code=True)
     if _TOKENIZER.pad_token is None:
         _TOKENIZER.pad_token = _TOKENIZER.eos_token
 
-    print(f"[remote] Ready in {time.time() - t0:.1f}s")
+    elapsed = time.time() - t0
+    print(f"[remote] ✅ Model fully ready in {elapsed:.1f}s — device: {_DEVICE_INFO}")
+    sys.stdout.flush()
     return _MODEL, _TOKENIZER
+
+
+def preload_model() -> tuple:
+    """Public helper — call this from the notebook before starting the server
+    so that model-download progress is visible in the cell output."""
+    return _load_model()
 
 
 def _build_answer(question: str, contexts: list[str], generation: dict[str, Any] | None = None) -> str:
@@ -221,15 +242,21 @@ class RequestHandler(BaseHTTPRequestHandler):
         print(f"[remote] {self.address_string()} - {format % args}")
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the remote NUST Bank inference server.")
-    parser.add_argument("--host", default="0.0.0.0")
-    parser.add_argument("--port", type=int, default=8000)
-    args = parser.parse_args()
+def main(host: str = "0.0.0.0", port: int = 8000) -> None:
+    """Start the HTTP inference server.  Can be called directly from a notebook."""
+    parser = argparse.ArgumentParser(
+        description="Run the remote NUST Bank inference server.",
+        # allow unknown args so Jupyter/IPython kernel flags don't break argparse
+        add_help=False,
+    )
+    parser.add_argument("--host", default=host)
+    parser.add_argument("--port", type=int, default=port)
+    args, _ = parser.parse_known_args()
 
     server = ThreadingHTTPServer((args.host, args.port), RequestHandler)
-    print(f"[remote] Listening on http://{args.host}:{args.port}")
+    print(f"[remote] 🚀 Server listening on http://{args.host}:{args.port}")
     print("[remote] Expose this port through ngrok, then set NUST_BANK_REMOTE_LLM_URL locally.")
+    sys.stdout.flush()
     server.serve_forever()
 
 
