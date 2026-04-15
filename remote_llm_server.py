@@ -147,11 +147,16 @@ def _build_answer(question: str, contexts: list[str], generation: dict[str, Any]
         {"role": "user", "content": user_content},
     ]
 
-    input_ids = tokenizer.apply_chat_template(
+    # apply_chat_template with return_tensors='pt' returns a BatchEncoding in newer
+    # transformers versions, NOT a plain tensor — calling .shape on it raises AttributeError.
+    # Fix: get a plain Python list of token IDs, then manually create the tensor.
+    token_ids = tokenizer.apply_chat_template(
         messages,
         add_generation_prompt=True,
-        return_tensors="pt",
+        tokenize=True,
+        return_tensors=None,   # plain Python list of ints
     )
+    input_ids = torch.tensor([token_ids], dtype=torch.long)
     device = next(model.parameters()).device
     input_ids = input_ids.to(device)
 

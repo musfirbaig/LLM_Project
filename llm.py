@@ -36,7 +36,9 @@ EMBEDDING_MODEL   = "all-MiniLM-L6-v2"
 FAISS_INDEX_PATH  = Path(__file__).resolve().parent / "data" / "faiss_index.bin"
 METADATA_PATH     = Path(__file__).resolve().parent / "data" / "chunk_metadata.json"
 TOP_K_RESULTS     = 3
-MIN_RETRIEVAL_CONFIDENCE = 0.35
+# For FAISS flat-L2 the distances are squared Euclidean values (often 20-200).
+# The formula 1/(1+d) gives confidence ~0.005-0.05, so the threshold must be low.
+MIN_RETRIEVAL_CONFIDENCE = 0.005
 
 # Generation hyper-parameters (sent to the remote server)
 MAX_NEW_TOKENS    = 512
@@ -326,6 +328,7 @@ def ask(question: str) -> dict:
     # ── Confidence from distance (lower L2 = better) ──
     best_distance = min(h["_distance"] for h in hits)
     confidence = retrieval_confidence_from_distance(best_distance)
+    print(f"[llm] FAISS best_distance={best_distance:.3f}  confidence={confidence:.5f}  threshold={MIN_RETRIEVAL_CONFIDENCE}")
     if confidence < MIN_RETRIEVAL_CONFIDENCE:
         return {
             "answer": "I do not have enough relevant bank information to answer that confidently.",

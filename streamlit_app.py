@@ -246,7 +246,15 @@ def _render_query_tab() -> None:
                 try:
                     result = ask(query)
                 except Exception as exc:
-                    st.error(f"❌ Error reaching remote model: {exc}")
+                    err_str = str(exc)
+                    # Check if there's a server traceback in the message
+                    if "Server traceback:" in err_str:
+                        short, _, tb = err_str.partition("Server traceback:")
+                        st.error(f"❌ {short.strip()}")
+                        with st.expander("🔍 Server traceback"):
+                            st.code(tb.strip(), language="python")
+                    else:
+                        st.error(f"❌ {err_str}")
                     st.session_state.messages.pop()
                     return
 
